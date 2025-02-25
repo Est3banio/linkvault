@@ -1,0 +1,13 @@
+<div id="link_<%= link.id %>" class="p-4 border-b">
+  <strong><%= link_to link.title, link.url, target: "_blank" %></strong>
+  <p><%= link.description %></p>
+  <%= link_to "Edit", edit_link_path(link), class: "text-blue-500" %>
+  |
+  <%= button_to "Delete",
+  link,
+  method: :delete,
+  data: {
+    turbo_confirm: "Are you sure?",
+  },
+  class: "text-red-500" %>
+</div>
