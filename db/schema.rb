@@ -10,9 +10,28 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_02_25_062645) do
+ActiveRecord::Schema[8.0].define(version: 2025_02_25_063037) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
+
+  create_table "link_tags", force: :cascade do |t|
+    t.bigint "link_id", null: false
+    t.bigint "tag_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["link_id"], name: "index_link_tags_on_link_id"
+    t.index ["tag_id"], name: "index_link_tags_on_tag_id"
+  end
+
+  create_table "links", force: :cascade do |t|
+    t.string "url"
+    t.string "title"
+    t.text "description"
+    t.bigint "user_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_links_on_user_id"
+  end
 
   create_table "sessions", force: :cascade do |t|
     t.bigint "user_id", null: false
@@ -23,6 +42,12 @@ ActiveRecord::Schema[8.0].define(version: 2025_02_25_062645) do
     t.index ["user_id"], name: "index_sessions_on_user_id"
   end
 
+  create_table "tags", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "email_address", null: false
     t.string "password_digest", null: false
@@ -31,5 +56,8 @@ ActiveRecord::Schema[8.0].define(version: 2025_02_25_062645) do
     t.index ["email_address"], name: "index_users_on_email_address", unique: true
   end
 
+  add_foreign_key "link_tags", "links"
+  add_foreign_key "link_tags", "tags"
+  add_foreign_key "links", "users"
   add_foreign_key "sessions", "users"
 end
