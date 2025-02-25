@@ -1,0 +1,23 @@
+<%= form_with(model: link, class: "space-y-4") do |f| %>
+  <div>
+    <%= f.label :title %>
+    <%= f.text_field :title, class: "border p-2 w-full" %>
+  </div>
+
+  <div>
+    <%= f.label :url %>
+    <%= f.text_field :url, class: "border p-2 w-full" %>
+  </div>
+
+  <div>
+    <%= f.label :description %>
+    <%= f.text_area :description, class: "border p-2 w-full" %>
+  </div>
+
+  <div>
+    <%= f.label :read, "Mark as read" %>
+    <%= f.check_box :read %>
+  </div>
+
+  <%= f.submit "Save", class: "btn btn-primary" %>
+<% end %>
