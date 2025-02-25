@@ -11,21 +11,27 @@ class LinksController < ApplicationController
     @link = Link.new
   end
 
-  def create
-    @link = Link.new(link_params)
-    if @link.save
-      redirect_to links_path, notice: "Link was successfully added."
-    else
-      render :new, status: :unprocessable_entity
+def create
+  @link = Link.new(link_params)
+  if @link.save
+    respond_to do |format|
+      format.html { redirect_to links_path, notice: "Link successfully added." }
+      format.turbo_stream { render turbo_stream: turbo_stream.prepend("links", partial: "links/link", locals: { link: @link }) }
     end
+  else
+    render :new, status: :unprocessable_entity
   end
+end
 
   def edit; end
 
-  def dstroy
-    @link.destroy
-    redirect_to links_path, notice: "Link deleted."
+def destroy
+  @link.destroy
+  respond_to do |format|
+    format.html { redirect_to links_path, notice: "Link deleted." }
+    format.turbo_stream { render turbo_stream: turbo_stream.remove("link_#{@link.id}") }
   end
+end
 
   private
 
