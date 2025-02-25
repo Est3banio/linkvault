@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  root "links#index"
   resource :session
   resources :passwords, param: :token
   resources :links
