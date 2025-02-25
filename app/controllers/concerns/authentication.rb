@@ -3,6 +3,7 @@ module Authentication
 
   included do
     before_action :require_authentication
+    before_action :set_current_user
     helper_method :authenticated?
   end
 
@@ -13,6 +14,19 @@ module Authentication
   end
 
   private
+
+  def set_current_user
+    Current.user = User.find_by(id: session[:user_id]) if session[:user_id].present?
+  end
+
+  def current_user
+    Current.user
+  end
+
+  def authenticate
+    redirect_to new_session_path, alert: "Bitte einloggen." unless current_user
+  end
+
     def authenticated?
       resume_session
     end

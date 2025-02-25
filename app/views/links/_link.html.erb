@@ -1,6 +1,11 @@
 <div id="link_<%= link.id %>" class="p-4 border-b">
   <strong><%= link_to link.title, link.url, target: "_blank" %></strong>
   <p><%= link.description %></p>
+
+  <% if link.image_url.present? %>
+    <img src="<%= link.image_url %>" alt="Preview" class="w-32 h-32 object-cover">
+  <% end %>
+
   <%= link_to "Edit", edit_link_path(link), class: "text-blue-500" %>
   |
   <%= button_to "Delete",

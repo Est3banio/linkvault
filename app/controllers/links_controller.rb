@@ -3,6 +3,21 @@ class LinksController < ApplicationController
 
 def index
   @links = Link.all
+
+  # Filter nach Tags
+  if params[:tag].present?
+    @links = @links.where("tags LIKE ?", "%#{params[:tag]}%")
+  end
+
+  # Filter nach gelesen/ungelesen
+  if params[:status].present?
+    @links = @links.where(read: params[:status] == "read")
+  end
+
+  respond_to do |format|
+    format.html
+    format.turbo_stream
+  end
 end
 
   def show; end
@@ -12,10 +27,11 @@ end
   end
 
 def create
-  @link = Link.new(link_params)
+  @link = current_user.links.new(link_params) # Hier wird current_user gesetzt
+
   if @link.save
     respond_to do |format|
-      format.html { redirect_to links_path, notice: "Link successfully added." }
+      format.html { redirect_to links_path, notice: "Link erfolgreich hinzugefügt." }
       format.turbo_stream { render turbo_stream: turbo_stream.prepend("links", partial: "links/link", locals: { link: @link }) }
     end
   else
@@ -48,6 +64,6 @@ end
   end
 
   def link_params
-    params.require(:link).permit(:title, :url, :description, :read)
+    params.require(:link).permit(:title, :url, :description, :read, :tags)
   end
 end
