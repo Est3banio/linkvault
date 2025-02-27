@@ -16,7 +16,7 @@ LinkVault is a beautifully designed bookmark manager that helps you organize and
 
 ## Screenshots
 
-![LinkVault Screenshot](public/screenshot.png)
+![LinkVault Screenshot](public/linkvault.png)
 
 ## Tech Stack
 
@@ -112,4 +112,3 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 ## About
 
 Made with Love by [Baniobits](https://www.baniobits.dev/)
-
