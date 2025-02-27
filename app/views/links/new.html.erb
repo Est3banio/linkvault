@@ -1,5 +1,14 @@
-<h1>New Link</h1>
+<div class="max-w-md mx-auto">
+  <div class="mb-6">
+    <h1 class="text-2xl font-bold text-[#cdd6f4]">Add New Link</h1>
+    <p class="text-[#a6adc8]">Save a link to your collection</p>
+  </div>
 
-<%= render "form", link: @link %>
+  <div class="card">
+    <%= render "form", link: @link %>
+  </div>
 
-<%= link_to "Zurück zur Liste", links_path, class: "btn btn-secondary" %>
+  <div class="mt-4">
+    <%= link_to "← Back to list", links_path, class: "text-[#89b4fa]" %>
+  </div>
+</div>

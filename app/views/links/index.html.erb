@@ -1,23 +1,43 @@
 <%= turbo_stream_from "links" %>
 
-<h1>Saved Links</h1>
-<%= link_to "Add New Link", new_link_path, class: "btn btn-primary" %>
-<h2>Filter</h2>
-<%= form_with url: links_path, method: :get, local: true, class: "mb-4 flex space-x-2" do |f| %>
-  <%= f.label :tag, "Tag:" %>
-  <%= f.text_field :tag, value: params[:tag], class: "border p-1" %>
+<div class="mb-6">
+  <div class="flex justify-between items-center mb-4">
+    <h1 class="text-3xl font-bold text-[#cdd6f4]">Saved Links</h1>
+    <%= link_to "Add New Link", new_link_path, class: "btn-primary" %>
+  </div>
+  
+  <div class="card mb-6">
+    <h2 class="text-xl font-semibold mb-3">Filter</h2>
+    <%= form_with url: links_path, method: :get, local: true, class: "space-y-4 md:space-y-0 md:flex md:items-end md:space-x-4" do |f| %>
+      <div>
+        <%= f.label :tag, "Tag:", class: "block text-sm font-medium mb-1" %>
+        <%= f.text_field :tag, value: params[:tag], class: "w-full" %>
+      </div>
 
-  <%= f.label :status, "Status:" %>
-  <%= f.select :status,
-           options_for_select(
-             [["Alle", ""], %w[Gelesen read], %w[Ungelesen unread]],
-             params[:status],
-           ),
-           class: "border p-1" %>
+      <div>
+        <%= f.label :status, "Status:", class: "block text-sm font-medium mb-1" %>
+        <%= f.select :status,
+                options_for_select(
+                  [["All", ""], ["Read", "read"], ["Unread", "unread"]],
+                  params[:status]
+                ),
+                {}, { class: "w-full" } %>
+      </div>
 
-  <%= f.submit "Filtern", class: "btn btn-primary" %>
-<% end %>
+      <div class="md:ml-auto">
+        <%= f.submit "Filter", class: "btn-primary w-full md:w-auto" %>
+      </div>
+    <% end %>
+  </div>
+</div>
 
-<div id="links">
-  <%= render @links %>
+<div id="links" class="space-y-4">
+  <% if @links.any? %>
+    <%= render @links %>
+  <% else %>
+    <div class="card text-center py-8">
+      <p class="text-xl text-[#a6adc8] mb-4">No links found</p>
+      <%= link_to "Add your first link", new_link_path, class: "btn-primary" %>
+    </div>
+  <% end %>
 </div>

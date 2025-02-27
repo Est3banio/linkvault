@@ -1,23 +1,42 @@
 <%= form_with(model: link, class: "space-y-4") do |f| %>
+  <% if link.errors.any? %>
+    <div class="bg-[#f38ba8]/20 p-3 rounded border border-[#f38ba8] mb-4">
+      <h2 class="text-[#f38ba8] font-bold mb-2"><%= pluralize(link.errors.count, "error") %> prohibited this link from being saved:</h2>
+      <ul class="list-disc list-inside">
+        <% link.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
   <div>
-    <%= f.label :title %>
-    <%= f.text_field :title, class: "border p-2 w-full" %>
+    <%= f.label :title, class: "block text-sm font-medium mb-1" %>
+    <%= f.text_field :title, class: "w-full" %>
   </div>
 
   <div>
-    <%= f.label :url %>
-    <%= f.text_field :url, class: "border p-2 w-full" %>
+    <%= f.label :url, class: "block text-sm font-medium mb-1" %>
+    <%= f.text_field :url, class: "w-full", placeholder: "https://example.com" %>
   </div>
 
   <div>
-    <%= f.label :description %>
-    <%= f.text_area :description, class: "border p-2 w-full" %>
+    <%= f.label :description, class: "block text-sm font-medium mb-1" %>
+    <%= f.text_area :description, class: "w-full", rows: 3 %>
   </div>
 
   <div>
-    <%= f.label :read, "Mark as read" %>
-    <%= f.check_box :read %>
+    <%= f.label :tags, class: "block text-sm font-medium mb-1" %>
+    <%= f.text_field :tags, class: "w-full", placeholder: "tag1, tag2, tag3" %>
+    <p class="text-xs text-[#a6adc8] mt-1">Separate tags with commas</p>
   </div>
 
-  <%= f.submit "Save", class: "btn btn-primary" %>
+  <div class="flex items-center gap-2">
+    <%= f.check_box :read, class: "h-4 w-4 rounded border-[#585b70] bg-[#313244]" %>
+    <%= f.label :read, "Mark as read", class: "text-sm font-medium" %>
+  </div>
+
+  <div class="pt-2">
+    <%= f.submit "Save", class: "btn-primary" %>
+  </div>
 <% end %>
