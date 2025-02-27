@@ -1,6 +1,6 @@
 # LinkVault
 
-<img src="public/icons8-safe-64.svg" alt="LinkVault Logo" width="120">
+<img src="public/icons8-safe-64.png" alt="LinkVault Logo" width="120">
 
 LinkVault is a beautifully designed bookmark manager that helps you organize and access your favorite links. Built with Ruby on Rails and styled with the beautiful Catppuccin Mocha theme.
 
