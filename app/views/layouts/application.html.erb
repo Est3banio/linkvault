@@ -28,11 +28,11 @@
             </h1>
           </div>
           <div class="flex items-center space-x-4">
-            <% if Current.user %>
-              <%= button_to "Logout", session_path, method: :delete, class: "btn text-sm" %>
+            <% if user_signed_in? %>
+              <%= button_to "Logout", destroy_user_session_path, method: :delete, class: "btn text-sm" %>
             <% else %>
-              <%= link_to "Login", new_session_path, class: "btn text-sm" %>
-              <%= link_to "Sign Up", sign_up_path, class: "btn-primary text-sm" %>
+              <%= link_to "Login", new_user_session_path, class: "btn text-sm" %>
+              <%= link_to "Sign Up", new_user_registration_path, class: "btn-primary text-sm" %>
             <% end %>
           </div>
         </div>

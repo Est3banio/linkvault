@@ -1,0 +1,42 @@
+<div class="max-w-md mx-auto card mt-8">
+  <h1 class="text-2xl font-bold mb-6">Log In</h1>
+
+  <% if flash[:alert] %>
+    <div class="bg-[#f38ba8]/20 p-3 rounded border border-[#f38ba8] mb-4">
+      <%= flash[:alert] %>
+    </div>
+  <% end %>
+
+  <% if flash[:notice] %>
+    <div class="bg-[#a6e3a1]/20 p-3 rounded border border-[#a6e3a1] mb-4">
+      <%= flash[:notice] %>
+    </div>
+  <% end %>
+
+  <%= form_for(resource, as: resource_name, url: session_path(resource_name), html: { class: "space-y-4" }) do |f| %>
+    <div>
+      <%= f.label :email, class: "block text-sm font-medium mb-1" %>
+      <%= f.email_field :email, class: "w-full", placeholder: "you@example.com", required: true, autofocus: true, autocomplete: "username" %>
+    </div>
+
+    <div>
+      <%= f.label :password, class: "block text-sm font-medium mb-1" %>
+      <%= f.password_field :password, class: "w-full", placeholder: "Your password", required: true, autocomplete: "current-password", maxlength: 72 %>
+    </div>
+
+    <% if devise_mapping.rememberable? %>
+      <div class="flex items-center">
+        <%= f.check_box :remember_me, class: "mr-2" %>
+        <%= f.label :remember_me, class: "text-sm" %>
+      </div>
+    <% end %>
+
+    <div class="pt-2">
+      <%= f.submit "Log In", class: "btn-primary w-full" %>
+    </div>
+  <% end %>
+
+  <div class="mt-6 text-center text-sm space-y-2">
+    <%= render "devise/shared/links" %>
+  </div>
+</div>

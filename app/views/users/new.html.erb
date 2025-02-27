@@ -14,8 +14,8 @@
     <% end %>
 
     <div>
-      <%= form.label :email, class: "block text-sm font-medium mb-1" %>
-      <%= form.email_field :email, class: "w-full", placeholder: "you@example.com", autocomplete: "email" %>
+      <%= form.label :email_address, "Email", class: "block text-sm font-medium mb-1" %>
+      <%= form.email_field :email_address, class: "w-full", placeholder: "you@example.com", autocomplete: "email" %>
     </div>
 
     <div>
@@ -34,6 +34,6 @@
   <% end %>
 
   <div class="mt-6 text-center text-sm">
-    Already have an account? <%= link_to "Log in", sign_in_path %>
+    Already have an account? <%= link_to "Log in", new_session_path %>
   </div>
 </div>
