@@ -6,6 +6,8 @@ run-renovate:
   stage: renovate
   script:
     - renovate
-  only:
-    - main
+  rules:
+    - if: '$CI_COMMIT_BRANCH == "main"'
+  variables:
+    RENOVATE_TOKEN: $RENOVATE_TOKEN
 
