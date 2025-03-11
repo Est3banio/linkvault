@@ -1,0 +1,11 @@
+stages:
+  - renovate
+
+run-renovate:
+  image: renovate/renovate:latest
+  stage: renovate
+  script:
+    - renovate
+  only:
+    - main
+
