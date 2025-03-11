@@ -109,4 +109,4 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 
 ## About
 
-Made with Love by [Baniobits](https://www.baniobits.dev/)
+Made with 💜 by [Baniobits](https://www.baniobits.dev/)
