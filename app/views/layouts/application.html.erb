@@ -29,7 +29,10 @@
           </div>
           <div class="flex items-center space-x-4">
             <% if user_signed_in? %>
-              <%= button_to "Logout", destroy_user_session_path, method: :delete, class: "btn text-sm" %>
+              <%= button_to "Logout",
+              destroy_user_session_path,
+              method: :delete,
+              class: "btn text-sm" %>
             <% else %>
               <%= link_to "Login", new_user_session_path, class: "btn text-sm" %>
               <%= link_to "Sign Up", new_user_registration_path, class: "btn-primary text-sm" %>
@@ -44,10 +47,18 @@
 
       <footer class="bg-[#181825] text-[#6c7086] py-6 mt-auto">
         <div class="container mx-auto px-4 text-center">
-          <p>LinkVault &copy; <%= Date.today.year %> | Your personal bookmark manager</p>
-          <p class="mt-2">Made with Love by <a href="https://www.baniobits.dev/" class="text-[#89b4fa] hover:text-[#74c7ec]" target="_blank">Baniobits</a></p>
+          <p>LinkVault &copy;
+            <%= Date.today.year %>
+            | Your personal bookmark manager</p>
+          <p class="mt-2">Made with 💜 by
+            <a
+              href="https://www.baniobits.dev/"
+              class="text-[#89b4fa] hover:text-[#74c7ec]"
+              target="_blank"
+            >Baniobits</a></p>
         </div>
       </footer>
     </div>
   </body>
 </html>
+
