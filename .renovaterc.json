@@ -1,0 +1,6 @@
+{
+  "platform": "gitlab",
+  "endpoint": "https://gitlab.baniobits.work/api/v4/",
+  "repositories": ["BanioBits/linkvault"]
+}
+
