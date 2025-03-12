@@ -7,12 +7,18 @@ run-renovate:
   script:
     - echo "Checking RENOVATE_TOKEN"
     - if [ -z "$RENOVATE_TOKEN" ]; then echo "RENOVATE_TOKEN is missing!"; exit 1; fi
-    - renovate
+    - echo "Checking API access..."
+    - curl -v --header "PRIVATE-TOKEN: $RENOVATE_TOKEN" "https://gitlab.baniobits.work/api/v4/user"
+    - echo "API is accessible ✅"
+    - echo "Running Renovate..."
+    - renovate | tee renovate.log
+    - echo "Renovate finished"
   rules:
     - if: '$CI_COMMIT_BRANCH == "main"'
   variables:
     RENOVATE_TOKEN: $RENOVATE_TOKEN
-    RENOVATE_ENDPOINT: $RENOVATE_ENDPOINT
-    RENOVATE_PLATFORM: $RENOVATE_PLATFORM
+    RENOVATE_ENDPOINT: "https://gitlab.baniobits.work/api/v4"
+    RENOVATE_PLATFORM: "gitlab"
     LOG_LEVEL: "debug"
+
 
