@@ -12,6 +12,5 @@ run-renovate:
     - if: '$CI_COMMIT_BRANCH == "main"'
   variables:
     RENOVATE_TOKEN: $RENOVATE_TOKEN
-    RENOVATE_ENDPOINT: "https://gitlab.baniobits.work/api/v4"
     LOG_LEVEL: "debug"
 
