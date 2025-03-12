@@ -5,11 +5,13 @@ run-renovate:
   image: renovate/renovate:latest
   stage: renovate
   script:
+    - echo "Checking RENOVATE_TOKEN"
+    - if [ -z "$RENOVATE_TOKEN" ]; then echo "RENOVATE_TOKEN is missing!"; exit 1; fi
     - renovate
   rules:
     - if: '$CI_COMMIT_BRANCH == "main"'
   variables:
     RENOVATE_TOKEN: $RENOVATE_TOKEN
-    LOG_LEVEL: "debug" 
-
+    RENOVATE_ENDPOINT: "https://gitlab.baniobits.work/api/v4"
+    LOG_LEVEL: "debug"
 
