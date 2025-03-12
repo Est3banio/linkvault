@@ -12,5 +12,7 @@ run-renovate:
     - if: '$CI_COMMIT_BRANCH == "main"'
   variables:
     RENOVATE_TOKEN: $RENOVATE_TOKEN
+    RENOVATE_ENDPOINT: $RENOVATE_ENDPOINT
+    RENOVATE_PLATFORM: $RENOVATE_PLATFORM
     LOG_LEVEL: "debug"
 
