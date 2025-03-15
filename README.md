@@ -72,6 +72,21 @@ For local development, the project uses:
 - Ruby's built-in testing framework
 - Tailwind CSS for styling
 
+### Creating a User via Console
+
+To create a user using the Rails console:
+
+```bash
+# Start the Rails console
+rails console
+
+# Create a new user (adjust email and password as needed)
+User.create!(email: "user@example.com", password: "password123", password_confirmation: "password123")
+
+# Verify the user was created
+User.count
+```
+
 ## Testing
 
 Run the test suite with:
