@@ -97,7 +97,23 @@ rails test
 
 ## Deployment
 
-The application can be deployed using Docker and Kamal:
+### Docker
+
+You can run the application in a Docker container:
+
+```bash
+# Build the Docker image
+docker build -t linkvault .
+
+# Run the container
+docker run -d -p 80:80 -e RAILS_MASTER_KEY=<value from config/master.key> --name linkvault linkvault
+```
+
+For a containerized development environment, see [Dev Containers](https://guides.rubyonrails.org/getting_started_with_devcontainer.html).
+
+### Kamal
+
+The application can also be deployed using Kamal:
 
 ```bash
 ./bin/kamal setup
