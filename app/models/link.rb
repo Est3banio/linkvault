@@ -1,4 +1,6 @@
-require "metainspector"
+# frozen_string_literal: true
+
+require 'metainspector'
 
 class Link < ApplicationRecord
   belongs_to :user

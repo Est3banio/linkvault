@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class CreateLinkTags < ActiveRecord::Migration[8.0]
   def change
     create_table :link_tags do |t|

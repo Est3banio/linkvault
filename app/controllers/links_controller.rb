@@ -1,18 +1,16 @@
+# frozen_string_literal: true
+
 class LinksController < ApplicationController
-  before_action :set_link, only: [ :show, :edit, :update, :destroy ]
+  before_action :set_link, only: %i[show edit update destroy]
 
   def index
     @links = current_user.links
 
     # Filter nach Tags
-    if params[:tag].present?
-      @links = @links.where("tags LIKE ?", "%#{params[:tag]}%")
-    end
+    @links = @links.where('tags LIKE ?', "%#{params[:tag]}%") if params[:tag].present?
 
     # Filter nach gelesen/ungelesen
-    if params[:status].present?
-      @links = @links.where(read: params[:status] == "read")
-    end
+    @links = @links.where(read: params[:status] == 'read') if params[:status].present?
 
     respond_to do |format|
       format.html
@@ -31,8 +29,10 @@ class LinksController < ApplicationController
 
     if @link.save
       respond_to do |format|
-        format.html { redirect_to links_path, notice: "Link erfolgreich hinzugefügt." }
-        format.turbo_stream { render turbo_stream: turbo_stream.prepend("links", partial: "links/link", locals: { link: @link }) }
+        format.html { redirect_to links_path, notice: 'Link erfolgreich hinzugefügt.' }
+        format.turbo_stream do
+          render turbo_stream: turbo_stream.prepend('links', partial: 'links/link', locals: { link: @link })
+        end
       end
     else
       render :new, status: :unprocessable_entity
@@ -43,7 +43,7 @@ class LinksController < ApplicationController
 
   def update
     if @link.update(link_params)
-      redirect_to links_path, notice: "Link updated."
+      redirect_to links_path, notice: 'Link updated.'
     else
       render :edit, status: :unprocessable_entity
     end
@@ -52,7 +52,7 @@ class LinksController < ApplicationController
   def destroy
     @link.destroy
     respond_to do |format|
-      format.html { redirect_to links_path, notice: "Link deleted." }
+      format.html { redirect_to links_path, notice: 'Link deleted.' }
       format.turbo_stream { render turbo_stream: turbo_stream.remove("link_#{@link.id}") }
     end
   end
