@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# Migration to create sessions table
 class CreateSessions < ActiveRecord::Migration[8.0]
   def change
     create_table :sessions do |t|

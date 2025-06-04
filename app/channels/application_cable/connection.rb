@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 module ApplicationCable
+  # WebSocket connection for real-time features
   class Connection < ActionCable::Connection::Base
     identified_by :current_user
 

@@ -29,3 +29,18 @@
 
 en:
   hello: "Hello world"
+  links:
+    notices:
+      created: "Link erfolgreich hinzugefügt."
+      updated: "Link updated."
+      deleted: "Link deleted."
+  passwords:
+    notices:
+      reset_sent: "Password reset instructions sent (if user with that email address exists)."
+      reset_success: "Password has been reset."
+    alerts:
+      passwords_mismatch: "Passwords did not match."
+      invalid_token: "Password reset link is invalid or has expired."
+  mailers:
+    passwords:
+      reset_subject: "Reset your password"
