@@ -1,5 +1,9 @@
 # LinkVault
 
+[![Pipeline Status](https://gitlab.com/baniobits/linkvault/badges/main/pipeline.svg)](https://gitlab.com/baniobits/linkvault/-/commits/main)
+[![Coverage Report](https://gitlab.com/baniobits/linkvault/badges/main/coverage.svg)](https://gitlab.com/baniobits/linkvault/-/commits/main)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+
 LinkVault is a beautifully designed bookmark manager that helps you organize and access your favorite links. Built with Ruby on Rails and styled with the beautiful Catppuccin Mocha theme.
 
 ## Features
@@ -39,7 +43,7 @@ LinkVault is a beautifully designed bookmark manager that helps you organize and
 1. Clone the repository
 
 ```bash
-git clone https://github.com/yourusername/linkvault.git
+git clone https://gitlab.com/baniobits/linkvault.git
 cd linkvault
 ```
 
@@ -64,6 +68,15 @@ rails db:create db:migrate
 
 5. Visit `http://localhost:3000` in your browser
 
+## Documentation
+
+For comprehensive documentation, see the [`docs/`](docs/) folder:
+
+- [Architecture Overview](docs/architecture.md) - System design and components
+- [Deployment Guide](docs/deployment.md) - Docker, Kamal, and production setup
+- [Contributing Guidelines](docs/contribution.md) - Development workflow and standards
+- [Changelog](CHANGELOG.md) - Project history and releases
+
 ## Development
 
 For local development, the project uses:
@@ -71,6 +84,19 @@ For local development, the project uses:
 - Solid Queue for background job processing
 - Ruby's built-in testing framework
 - Tailwind CSS for styling
+- GitLab CI/CD for automated testing and deployment
+
+### CI/CD Pipeline
+
+This project uses GitLab CI/CD for continuous integration and deployment. The pipeline includes:
+
+- Automated testing on every commit
+- Code quality checks with RuboCop
+- Security scanning with Brakeman
+- Dependency vulnerability scanning
+- Automated deployment to staging/production environments
+
+See `.gitlab-ci.yml` for the complete pipeline configuration.
 
 ### Creating a User via Console
 
@@ -172,11 +198,22 @@ The application can also be deployed using Kamal:
 
 ## Contributing
 
+We welcome contributions! Please see our [Contributing Guide](docs/contribution.md) for detailed information on:
+
+- Development setup and workflow
+- GitLab branch strategy
+- Code standards and testing
+- Merge request process
+- Issue reporting guidelines
+
+Quick start for contributors:
 1. Fork the project
 2. Create your feature branch (`git checkout -b feature/amazing-feature`)
 3. Commit your changes (`git commit -m 'Add some amazing feature'`)
 4. Push to the branch (`git push origin feature/amazing-feature`)
-5. Open a Pull Request
+5. Open a Merge Request using our MR template
+
+For questions, please check our [documentation](docs/) or create a discussion on GitLab.
 
 ## License
 
