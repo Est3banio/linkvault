@@ -16,15 +16,15 @@
         
         <div class="flex space-x-2">
           <% if link.read? %>
-            <%= button_to "Mark Unread", link_path(link, link: { read: false }), method: :put, class: "text-xs text-[#a6adc8] bg-[#313244] hover:bg-[#45475a] py-1 px-2 rounded" %>
+            <%= button_to "Mark Unread", link_path(link, link: { read: false }), method: :put, class: "text-xs text-[#f9e2af] bg-[#f9e2af]/20 hover:bg-[#f9e2af]/30 border border-[#f9e2af]/30 hover:border-[#f9e2af]/50 py-1 px-3 rounded-md transition-all duration-200" %>
           <% else %>
-            <%= button_to "Mark Read", link_path(link, link: { read: true }), method: :put, class: "text-xs bg-[#313244] hover:bg-[#45475a] py-1 px-2 rounded" %>
+            <%= button_to "Mark Read", link_path(link, link: { read: true }), method: :put, class: "text-xs text-[#a6e3a1] bg-[#a6e3a1]/20 hover:bg-[#a6e3a1]/30 border border-[#a6e3a1]/30 hover:border-[#a6e3a1]/50 py-1 px-3 rounded-md transition-all duration-200" %>
           <% end %>
           
-          <%= link_to "Edit", edit_link_path(link), class: "text-xs bg-[#313244] hover:bg-[#45475a] py-1 px-2 rounded" %>
+          <%= link_to "Edit", edit_link_path(link), class: "text-xs text-[#89b4fa] bg-[#89b4fa]/20 hover:bg-[#89b4fa]/30 border border-[#89b4fa]/30 hover:border-[#89b4fa]/50 py-1 px-3 rounded-md transition-all duration-200" %>
           <%= button_to "Delete", link, method: :delete, 
               data: { turbo_confirm: "Are you sure?" },
-              class: "text-xs bg-[#313244] text-[#f38ba8] hover:bg-[#45475a] py-1 px-2 rounded" %>
+              class: "text-xs text-[#f38ba8] bg-[#f38ba8]/20 hover:bg-[#f38ba8]/30 border border-[#f38ba8]/30 hover:border-[#f38ba8]/50 py-1 px-3 rounded-md transition-all duration-200" %>
         </div>
       </div>
       
@@ -35,9 +35,9 @@
       <% end %>
       
       <% if link.tags.present? %>
-        <div class="flex flex-wrap gap-1 mt-2">
+        <div class="flex flex-wrap gap-2 mt-3">
           <% link.tags.split(',').each do |tag| %>
-            <span class="text-xs bg-[#313244] text-[#89b4fa] py-1 px-2 rounded-full"><%= tag.strip %></span>
+            <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-[#89b4fa]/20 text-[#89b4fa] border border-[#89b4fa]/30"><%= tag.strip %></span>
           <% end %>
         </div>
       <% end %>
