@@ -2,7 +2,7 @@
 
 # Controller for password reset functionality
 class PasswordsController < ApplicationController
-  allow_unauthenticated_access
+  skip_before_action :authenticate_user!
   before_action :set_user_by_token, only: %i[edit update]
 
   def new; end
