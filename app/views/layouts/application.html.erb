@@ -23,19 +23,22 @@
       <header class="bg-[#181825] shadow-md py-4">
         <div class="container mx-auto px-4 flex justify-between items-center">
           <div class="flex items-center space-x-4">
-            <h1 class="text-2xl font-bold text-[#cdd6f4]">
+            <h1 class="text-xl sm:text-2xl font-bold text-[#cdd6f4]">
               <%= link_to "LinkVault", root_path, class: "text-[#cdd6f4] hover:text-[#cdd6f4]" %>
             </h1>
           </div>
-          <div class="flex items-center space-x-4">
+          <div class="flex items-center space-x-3">
             <% if user_signed_in? %>
               <%= button_to "Logout",
               destroy_user_session_path,
               method: :delete,
-              class: "btn text-sm" %>
+              class: "btn text-sm px-3 sm:px-4 py-2" %>
             <% else %>
-              <%= link_to "Login", new_user_session_path, class: "btn text-sm" %>
-              <%= link_to "Sign Up", new_user_registration_path, class: "btn-primary text-sm" %>
+              <div class="flex items-center space-x-1 bg-[#313244] rounded-lg p-1">
+                <%= link_to "Login", new_user_session_path, class: "px-2 sm:px-4 py-2 text-xs sm:text-sm text-[#cdd6f4] hover:bg-[#45475a] rounded-md transition-colors" %>
+                <span class="text-[#6c7086] hidden sm:inline">|</span>
+                <%= link_to "Sign Up", new_user_registration_path, class: "px-2 sm:px-4 py-2 text-xs sm:text-sm bg-[#89b4fa] text-[#181825] hover:bg-[#b4befe] rounded-md transition-colors font-medium" %>
+              </div>
             <% end %>
           </div>
         </div>
