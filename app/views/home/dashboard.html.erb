@@ -1,0 +1,170 @@
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+  <!-- Header -->
+  <div class="mb-8 animate-fade-in-up">
+    <h1 class="text-3xl font-bold text-[#cdd6f4] mb-2">Welcome back, <%= current_user.email.split('@').first.capitalize %>!</h1>
+    <p class="text-[#bac2de]">Here's your LinkVault overview</p>
+  </div>
+
+  <!-- Stats Cards -->
+  <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8 animate-fade-in-up animate-delay-100">
+    <div class="card hover:border-[#89b4fa] hover:shadow-lg hover:shadow-[#89b4fa]/20 transition-all duration-300">
+      <div class="flex items-center">
+        <div class="p-3 rounded-lg bg-[#89b4fa]/20 mr-4">
+          <svg class="w-6 h-6 text-[#89b4fa]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"></path>
+          </svg>
+        </div>
+        <div>
+          <p class="text-sm text-[#bac2de]">Total Links</p>
+          <p class="text-2xl font-bold text-[#cdd6f4]"><%= @total_links %></p>
+        </div>
+      </div>
+    </div>
+
+    <div class="card hover:border-[#f9e2af] hover:shadow-lg hover:shadow-[#f9e2af]/20 transition-all duration-300">
+      <div class="flex items-center">
+        <div class="p-3 rounded-lg bg-[#f9e2af]/20 mr-4">
+          <svg class="w-6 h-6 text-[#f9e2af]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.746 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path>
+          </svg>
+        </div>
+        <div>
+          <p class="text-sm text-[#bac2de]">Unread</p>
+          <p class="text-2xl font-bold text-[#cdd6f4]"><%= @unread_links %></p>
+        </div>
+      </div>
+    </div>
+
+    <div class="card hover:border-[#a6e3a1] hover:shadow-lg hover:shadow-[#a6e3a1]/20 transition-all duration-300">
+      <div class="flex items-center">
+        <div class="p-3 rounded-lg bg-[#a6e3a1]/20 mr-4">
+          <svg class="w-6 h-6 text-[#a6e3a1]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z"></path>
+          </svg>
+        </div>
+        <div>
+          <p class="text-sm text-[#bac2de]">Tags Used</p>
+          <p class="text-2xl font-bold text-[#cdd6f4]"><%= @tags.length %></p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+    <!-- Recent Links -->
+    <div class="animate-fade-in-up animate-delay-200">
+      <div class="flex justify-between items-center mb-6">
+        <h2 class="text-xl font-semibold text-[#cdd6f4]">Recent Links</h2>
+        <%= link_to "View All", links_path, class: "btn-primary text-sm px-4 py-2" %>
+      </div>
+      
+      <div class="space-y-3">
+        <% if @recent_links.any? %>
+          <% @recent_links.each do |link| %>
+            <div class="card hover:border-[#585b70] transition-all duration-300">
+              <div class="flex items-start justify-between">
+                <div class="flex-1 min-w-0">
+                  <%= link_to link.url, link.url, target: "_blank", class: "text-[#89b4fa] hover:text-[#74c7ec] font-medium truncate block" %>
+                  <% if link.title.present? %>
+                    <p class="text-sm text-[#bac2de] mt-1 truncate"><%= link.title %></p>
+                  <% end %>
+                  <div class="flex items-center mt-2 space-x-3">
+                    <span class="text-xs text-[#6c7086]"><%= time_ago_in_words(link.created_at) %> ago</span>
+                    <% unless link.read? %>
+                      <span class="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-[#f9e2af]/20 text-[#f9e2af]">Unread</span>
+                    <% end %>
+                  </div>
+                </div>
+              </div>
+            </div>
+          <% end %>
+        <% else %>
+          <div class="card text-center py-8">
+            <svg class="w-12 h-12 text-[#6c7086] mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"></path>
+            </svg>
+            <p class="text-[#bac2de] mb-4">No links saved yet</p>
+            <%= link_to "Add Your First Link", new_link_path, class: "btn-primary" %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+
+    <!-- Popular Tags -->
+    <div class="animate-fade-in-up animate-delay-300">
+      <h2 class="text-xl font-semibold text-[#cdd6f4] mb-6">Popular Tags</h2>
+      
+      <div class="card">
+        <% if @tags.any? %>
+          <div class="space-y-3">
+            <% @tags.each do |tag_name, count| %>
+              <div class="flex justify-between items-center">
+                <span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-[#89b4fa]/20 text-[#89b4fa]">
+                  <%= tag_name %>
+                </span>
+                <span class="text-sm text-[#6c7086]"><%= count %> link<%= 's' if count != 1 %></span>
+              </div>
+            <% end %>
+          </div>
+        <% else %>
+          <div class="text-center py-8">
+            <svg class="w-12 h-12 text-[#6c7086] mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z"></path>
+            </svg>
+            <p class="text-[#bac2de]">No tags used yet</p>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+
+  <!-- Quick Actions -->
+  <div class="mt-8 animate-fade-in-up animate-delay-300">
+    <h2 class="text-xl font-semibold text-[#cdd6f4] mb-6">Quick Actions</h2>
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+      <%= link_to new_link_path, class: "card hover:border-[#89b4fa] hover:shadow-lg hover:shadow-[#89b4fa]/20 transition-all duration-300 group" do %>
+        <div class="text-center py-4">
+          <div class="p-3 rounded-lg bg-[#89b4fa]/20 w-fit mx-auto mb-3 group-hover:bg-[#89b4fa]/30 transition-colors">
+            <svg class="w-6 h-6 text-[#89b4fa]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
+            </svg>
+          </div>
+          <p class="font-medium text-[#cdd6f4]">Add Link</p>
+        </div>
+      <% end %>
+
+      <%= link_to links_path, class: "card hover:border-[#a6e3a1] hover:shadow-lg hover:shadow-[#a6e3a1]/20 transition-all duration-300 group" do %>
+        <div class="text-center py-4">
+          <div class="p-3 rounded-lg bg-[#a6e3a1]/20 w-fit mx-auto mb-3 group-hover:bg-[#a6e3a1]/30 transition-colors">
+            <svg class="w-6 h-6 text-[#a6e3a1]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 10h16M4 14h16M4 18h16"></path>
+            </svg>
+          </div>
+          <p class="font-medium text-[#cdd6f4]">Browse All</p>
+        </div>
+      <% end %>
+
+      <%= link_to links_path(filter: 'unread'), class: "card hover:border-[#f9e2af] hover:shadow-lg hover:shadow-[#f9e2af]/20 transition-all duration-300 group" do %>
+        <div class="text-center py-4">
+          <div class="p-3 rounded-lg bg-[#f9e2af]/20 w-fit mx-auto mb-3 group-hover:bg-[#f9e2af]/30 transition-colors">
+            <svg class="w-6 h-6 text-[#f9e2af]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.746 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path>
+            </svg>
+          </div>
+          <p class="font-medium text-[#cdd6f4]">Unread</p>
+        </div>
+      <% end %>
+
+      <%= link_to destroy_user_session_path, method: :delete, class: "card hover:border-[#f38ba8] hover:shadow-lg hover:shadow-[#f38ba8]/20 transition-all duration-300 group" do %>
+        <div class="text-center py-4">
+          <div class="p-3 rounded-lg bg-[#f38ba8]/20 w-fit mx-auto mb-3 group-hover:bg-[#f38ba8]/30 transition-colors">
+            <svg class="w-6 h-6 text-[#f38ba8]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"></path>
+            </svg>
+          </div>
+          <p class="font-medium text-[#cdd6f4]">Sign Out</p>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>

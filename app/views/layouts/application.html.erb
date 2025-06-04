@@ -27,16 +27,18 @@
               <%= link_to "LinkVault", root_path, class: "text-[#cdd6f4] hover:text-[#cdd6f4]" %>
             </h1>
           </div>
-          <div class="flex items-center space-x-3">
+          <nav class="flex items-center space-x-3">
             <% if user_signed_in? %>
+              <%= link_to "Dashboard", dashboard_path, class: "text-[#cdd6f4] hover:text-[#89b4fa] transition-colors text-sm font-medium px-3 py-2 rounded-md hover:bg-[#313244]" %>
+              <%= link_to "Links", links_path, class: "text-[#cdd6f4] hover:text-[#89b4fa] transition-colors text-sm font-medium px-3 py-2 rounded-md hover:bg-[#313244]" %>
               <%= button_to "Logout",
               destroy_user_session_path,
               method: :delete,
               class: "btn text-sm px-3 sm:px-4 py-2" %>
             <% else %>
-              <%= link_to "Login", new_user_session_path, class: "px-4 py-2 text-sm bg-[#89b4fa] text-[#181825] hover:bg-[#b4befe] rounded-md transition-colors font-medium" %>
+              <%= link_to "Login", new_user_session_path, class: "btn-primary text-sm px-4 py-2" %>
             <% end %>
-          </div>
+          </nav>
         </div>
       </header>
 
