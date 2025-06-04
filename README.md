@@ -14,7 +14,7 @@ LinkVault is a beautifully designed bookmark manager that helps you organize and
 
 ## Screenshots
 
-![LinkVault Screenshot](public/linkvault.png)
+<img src="public/linkvault.png" alt="LinkVault Screenshot" width="800">
 
 ## Tech Stack
 
@@ -99,17 +99,67 @@ rails test
 
 ### Docker
 
+**⚠️ Important**: This Docker setup requires a PostgreSQL database. You'll need to run a PostgreSQL container or connect to an external database.
+
 You can run the application in a Docker container:
 
 ```bash
 # Build the Docker image
 docker build -t linkvault .
 
-# Run the container
-docker run -d -p 80:80 -e RAILS_MASTER_KEY=<value from config/master.key> --name linkvault linkvault
+# Option 1: Run with environment variables
+export RAILS_MASTER_KEY=$(cat config/master.key)
+export DATABASE_URL="postgresql://username:password@host:5432/linkvault_production"
+docker run -d -p 3000:80 \
+  -e RAILS_MASTER_KEY="$RAILS_MASTER_KEY" \
+  -e DATABASE_URL="$DATABASE_URL" \
+  --name linkvault linkvault
+
+# Option 2: Run with .env file (create one with your environment variables)
+docker run -d -p 3000:80 --env-file .env --name linkvault linkvault
 ```
 
+**Getting RAILS_MASTER_KEY**: The master key is located in `config/master.key` (not committed to git for security). For new deployments, generate one with `rails credentials:edit` or `bin/rails secret`.
+
+For a complete development setup with database included, see the docker-compose.yml section below.
+
 For a containerized development environment, see [Dev Containers](https://guides.rubyonrails.org/getting_started_with_devcontainer.html).
+
+### Docker Compose (Development)
+
+For local development with a database included, create a `docker-compose.yml`:
+
+```yaml
+version: '3.8'
+services:
+  db:
+    image: postgres:15
+    environment:
+      POSTGRES_DB: linkvault_development
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+
+  web:
+    build: .
+    ports:
+      - "3000:80"
+    environment:
+      DATABASE_URL: postgresql://postgres:password@db:5432/linkvault_development
+      RAILS_MASTER_KEY: your_master_key_here
+    depends_on:
+      - db
+    volumes:
+      - .:/rails
+
+volumes:
+  postgres_data:
+```
+
+Then run: `docker-compose up`
 
 ### Kamal
 
