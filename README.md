@@ -9,6 +9,7 @@ LinkVault is a beautifully designed bookmark manager that helps you organize and
 ## Features
 
 - 🔐 User authentication with secure password reset
+- 👥 Invitation-only user registration (public sign-up disabled)
 - 📝 Save and organize your web links
 - 🏷️ Tag links for easier organization
 - 🔍 Filter links by tags and read/unread status
@@ -98,9 +99,13 @@ This project uses GitLab CI/CD for continuous integration and deployment. The pi
 
 See `.gitlab-ci.yml` for the complete pipeline configuration.
 
-### Creating a User via Console
+### User Management
 
-To create a user using the Rails console:
+**Important**: LinkVault uses invitation-only registration. Public sign-up is disabled for security and control.
+
+#### Creating Users via Console
+
+Since public registration is disabled, new users must be created manually via the Rails console:
 
 ```bash
 # Start the Rails console
@@ -112,6 +117,13 @@ User.create!(email: "user@example.com", password: "password123", password_confir
 # Verify the user was created
 User.count
 ```
+
+#### User Registration Policy
+
+- Public sign-up routes (`/users/sign_up`) are disabled
+- Only administrators can create new user accounts
+- Existing users can log in normally at `/users/sign_in`
+- Password reset functionality remains available for existing users
 
 ## Testing
 
