@@ -5,6 +5,8 @@ require 'metainspector'
 # Model representing a saved link with metadata
 class Link < ApplicationRecord
   belongs_to :user
+  has_many :link_tags, dependent: :destroy
+  has_many :tags, through: :link_tags
   before_save :fetch_meta_data, if: -> { url_changed? }
 
   private
