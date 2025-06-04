@@ -115,7 +115,7 @@ docker run -d -p 3000:80 \
   -e DATABASE_URL="$DATABASE_URL" \
   --name linkvault linkvault
 
-# Option 2: Run with .env file (create one with your environment variables)
+# Option 2: create a .env file with your keys and secrets
 docker run -d -p 3000:80 --env-file .env --name linkvault linkvault
 ```
 
