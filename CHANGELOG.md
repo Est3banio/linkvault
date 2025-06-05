@@ -7,10 +7,21 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.3.0] - 2025-01-06
+
 ### Added
 - Comprehensive documentation overhaul with docs/ folder structure
 - GitLab CI/CD integration and status badges
 - Architecture and deployment documentation
+
+### Fixed
+- **Edit Link Functionality**: Added missing `edit.html.erb` template that was preventing link editing
+- **Tags System**: Complete overhaul of tag functionality
+  - Fixed Link model to properly create LinkTag associations through after_save callback
+  - Updated view logic to display tags using associations instead of string parsing
+  - Fixed tag filtering in controller to use proper joins instead of string matching
+  - Added proper validations to Tag model with presence, uniqueness, and length constraints
+  - Implemented tag name normalization (strip and downcase)
 
 ## [1.2.0] - 2025-01-XX
 
