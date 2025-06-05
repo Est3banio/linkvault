@@ -58,8 +58,8 @@ class LinksController < ApplicationController
   end
 
   def filtered_links
-    links = current_user.links
-    links = links.where('tags LIKE ?', "%#{params[:tag]}%") if params[:tag].present?
+    links = current_user.links.includes(:tags)
+    links = links.joins(:tags).where(tags: { name: params[:tag] }) if params[:tag].present?
     links = links.where(read: params[:status] == 'read') if params[:status].present?
     links
   end

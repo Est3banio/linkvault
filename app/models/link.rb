@@ -13,15 +13,19 @@ class Link < ApplicationRecord
     return unless value.is_a?(String)
     
     tag_names = value.split(',').map(&:strip).reject(&:blank?)
-    self.tag_objects = tag_names.map { |name| Tag.find_or_create_by(name: name) }
+    @pending_tags = tag_names.map { |name| Tag.find_or_create_by(name: name) }
   end
+
+  after_save :assign_tags
 
   private
 
-  attr_writer :tag_objects
+  def assign_tags
+    return unless @pending_tags
 
-  def tag_objects=(tag_array)
-    self.tags = tag_array
+    self.tags.clear
+    self.tags << @pending_tags
+    @pending_tags = nil
   end
 
   def fetch_meta_data

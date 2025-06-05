@@ -34,10 +34,10 @@
         <p class="mb-3 text-[#cdd6f4]"><%= link.description %></p>
       <% end %>
       
-      <% if link.tags.present? %>
+      <% if link.tags.any? %>
         <div class="flex flex-wrap gap-2 mt-3">
-          <% link.tags.split(',').each do |tag| %>
-            <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-[#89b4fa]/20 text-[#89b4fa] border border-[#89b4fa]/30"><%= tag.strip %></span>
+          <% link.tags.each do |tag| %>
+            <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-[#89b4fa]/20 text-[#89b4fa] border border-[#89b4fa]/30"><%= tag.name %></span>
           <% end %>
         </div>
       <% end %>
