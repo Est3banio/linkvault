@@ -40,7 +40,20 @@ LinkVault is a beautifully designed bookmark manager that helps you organize and
 
 ## Screenshots
 
-<img src="public/linkvault.png" alt="LinkVault Screenshot" width="800">
+### Main Dashboard
+<img src="app/assets/images/Dashboard.png" alt="LinkVault Dashboard - Main interface showing saved links with filtering and organization" width="800">
+
+*The main dashboard shows your saved links with powerful filtering options, read/unread status, and tag-based organization.*
+
+### Landing Page
+<img src="app/assets/images/StartPage.png" alt="LinkVault Landing Page - Clean, modern interface with Catppuccin Mocha theme" width="800">
+
+*Beautiful landing page showcasing the clean, modern design with the Catppuccin Mocha color scheme.*
+
+### Application Overview
+<img src="public/linkvault.png" alt="LinkVault Application Overview - Complete bookmark management interface" width="800">
+
+*Complete view of the LinkVault interface showing the comprehensive bookmark management capabilities.*
 
 ## Tech Stack
 
