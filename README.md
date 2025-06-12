@@ -9,6 +9,7 @@ LinkVault is a beautifully designed bookmark manager that helps you organize and
 ## Features
 
 ### Core Functionality
+
 - 🔐 User authentication with secure password reset
 - 👥 Invitation-only user registration (public sign-up disabled)
 - 📝 Save and organize your web links
@@ -20,18 +21,21 @@ LinkVault is a beautifully designed bookmark manager that helps you organize and
 - 📖 Read/unread status tracking
 
 ### Admin Management
+
 - 👑 Complete admin dashboard for user management
 - ✨ Create, edit, and delete user accounts
 - 🛡️ Grant or revoke admin privileges
 - 🎯 Admin-only routes and authentication
 
 ### Import & Export
+
 - 📤 Bulk link import from CSV files with flexible column mapping
 - 🌐 HTML bookmark import (Chrome, Firefox, Netscape format)
 - 🔍 Import preview with duplicate detection
 - ⚙️ Flexible mapping for title, URL, tags, and description fields
 
 ### Mobile & PWA
+
 - 📱 Progressive Web App (PWA) with offline support
 - 🚀 Installable on mobile devices and desktop
 - 📲 Mobile link sharing with auto-fill integration
@@ -41,19 +45,16 @@ LinkVault is a beautifully designed bookmark manager that helps you organize and
 ## Screenshots
 
 ### Main Dashboard
+
 <img src="app/assets/images/Dashboard.png" alt="LinkVault Dashboard - Main interface showing saved links with filtering and organization" width="800">
 
 *The main dashboard shows your saved links with powerful filtering options, read/unread status, and tag-based organization.*
 
 ### Landing Page
+
 <img src="app/assets/images/StartPage.png" alt="LinkVault Landing Page - Clean, modern interface with Catppuccin Mocha theme" width="800">
 
 *Beautiful landing page showcasing the clean, modern design with the Catppuccin Mocha color scheme.*
-
-### Application Overview
-<img src="public/linkvault.png" alt="LinkVault Application Overview - Complete bookmark management interface" width="800">
-
-*Complete view of the LinkVault interface showing the comprehensive bookmark management capabilities.*
 
 ## Tech Stack
 
@@ -149,15 +150,18 @@ LinkVault includes a complete admin dashboard for comprehensive user management.
 - **Monitor user activity** and account status
 
 **Access Requirements:**
+
 - Must be logged in as an admin user
 - Admin privileges are managed via the `admin` boolean field in the user model
 
 **Navigation:**
+
 1. Log in as an admin user
 2. Click the "Admin" link in the top navigation (only visible to admins)
 3. Access the full user management interface at `/admin/users`
 
 **Admin Routes:**
+
 - `/admin/users` - List all users
 - `/admin/users/new` - Create new user
 - `/admin/users/:id/edit` - Edit user details
@@ -166,12 +170,14 @@ LinkVault includes a complete admin dashboard for comprehensive user management.
 #### Creating Users
 
 **Option 1: Admin Dashboard (Recommended)**
+
 - Log in as an admin user
 - Navigate to Admin → Users
 - Click "Create New User"
 - Fill in email, password, and admin privileges
 
 **Option 2: Rails Console**
+
 ```bash
 # Start the Rails console
 rails console
@@ -188,6 +194,7 @@ User.count
 
 **Option 3: Database Seeds**
 Run `rails db:seed` to create default admin and user accounts:
+
 - Admin: `admin@linkvault.local` / `admin123456`
 - User: `user@linkvault.local` / `user123456`
 
@@ -205,12 +212,14 @@ LinkVault supports bulk importing of links from external sources to help you mig
 ### Supported Import Formats
 
 #### CSV Import
+
 - **Flexible column mapping** - supports various column names
 - **Supported columns**: Title/Name, URL/Link, Tags/Tag, Description/Notes
 - **Duplicate detection** prevents importing the same URL multiple times
 - **Preview interface** lets you review links before importing
 
 #### HTML Bookmark Import
+
 - **Browser compatibility** - supports Chrome, Firefox, Safari exports
 - **Netscape bookmark format** - standard HTML bookmark format
 - **Hierarchical tags** - converts bookmark folders to tags
@@ -227,11 +236,13 @@ LinkVault supports bulk importing of links from external sources to help you mig
 ### Export Your Bookmarks
 
 **From Chrome:**
+
 1. Chrome Menu → Bookmarks → Bookmark Manager
 2. Click ⋮ (three dots) → Export bookmarks
 3. Save as HTML file
 
 **From Firefox:**
+
 1. Library → Bookmarks → Show All Bookmarks
 2. Import and Backup → Export Bookmarks to HTML
 3. Save the HTML file
@@ -251,12 +262,14 @@ LinkVault is a fully featured Progressive Web App that can be installed on your 
 ### Installation
 
 #### Mobile Devices (iOS/Android)
+
 1. Open LinkVault in your mobile browser
 2. Look for "Add to Home Screen" or "Install App" prompt
 3. Follow the installation prompts
 4. Launch from your home screen like a native app
 
 #### Desktop (Chrome/Edge/Safari)
+
 1. Open LinkVault in your browser
 2. Look for the install icon in the address bar
 3. Click "Install LinkVault" when prompted
@@ -366,6 +379,7 @@ We welcome contributions! Please see our [Contributing Guide](docs/contribution.
 - Issue reporting guidelines
 
 Quick start for contributors:
+
 1. Fork the project
 2. Create your feature branch (`git checkout -b feature/amazing-feature`)
 3. Commit your changes (`git commit -m 'Add some amazing feature'`)
