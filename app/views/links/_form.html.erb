@@ -22,6 +22,9 @@
     <%= f.label :url, class: "flex items-center gap-2 text-sm font-medium mb-2" do %>
       <span class="text-lg">🔗</span>
       URL
+      <% if link.url.present? && params[:url].present? %>
+        <span class="text-xs bg-[#89b4fa]/20 text-[#89b4fa] px-2 py-1 rounded font-normal">From shared link</span>
+      <% end %>
     <% end %>
     <%= f.text_field :url, class: "w-full pl-4", placeholder: "Enter the link you want to save (e.g. https://example.com)" %>
   </div>

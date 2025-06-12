@@ -77,5 +77,14 @@
         }
       ]
     }
-  ]
+  ],
+  "share_target": {
+    "action": "/links/new",
+    "method": "GET",
+    "params": {
+      "url": "url",
+      "title": "title",
+      "text": "text"
+    }
+  }
 }

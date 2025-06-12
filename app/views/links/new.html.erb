@@ -1,9 +1,31 @@
 <div class="max-w-lg mx-auto">
   <div class="mb-8 text-center">
-    <div class="text-5xl mb-4">🔗✨</div>
-    <h1 class="text-3xl font-bold text-[#cdd6f4] mb-2">Add New Link</h1>
-    <p class="text-[#a6adc8] text-lg">Save something awesome to your collection</p>
+    <div class="text-5xl mb-4"><%= params[:url].present? ? '📲🔗' : '🔗✨' %></div>
+    <h1 class="text-3xl font-bold text-[#cdd6f4] mb-2">
+      <%= params[:url].present? ? 'Save Shared Link' : 'Add New Link' %>
+    </h1>
+    <p class="text-[#a6adc8] text-lg">
+      <%= params[:url].present? ? 'Review and save this shared link to your collection' : 'Save something awesome to your collection' %>
+    </p>
   </div>
+
+  <% if flash[:notice] %>
+    <div class="mb-6 p-4 bg-[#a6e3a1]/20 border border-[#a6e3a1]/50 rounded-lg">
+      <div class="flex items-center gap-2">
+        <span class="text-[#a6e3a1]">✓</span>
+        <p class="text-[#a6e3a1] text-sm"><%= flash[:notice] %></p>
+      </div>
+    </div>
+  <% end %>
+
+  <% if flash[:alert] %>
+    <div class="mb-6 p-4 bg-[#fab387]/20 border border-[#fab387]/50 rounded-lg">
+      <div class="flex items-center gap-2">
+        <span class="text-[#fab387]">⚠</span>
+        <p class="text-[#fab387] text-sm"><%= flash[:alert] %></p>
+      </div>
+    </div>
+  <% end %>
 
   <div class="card shadow-xl border-2 border-[#585b70]/50 hover:border-[#89b4fa]/30 transition-all duration-300">
     <%= render "form", link: @link %>
