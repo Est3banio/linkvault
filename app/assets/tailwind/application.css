@@ -73,3 +73,28 @@
     animation-delay: 0.3s;
   }
 }
+
+@layer utilities {
+  .bg-gradient-to-r {
+    background-image: linear-gradient(to right, var(--tw-gradient-stops));
+  }
+  
+  .from-\[#89b4fa\] {
+    --tw-gradient-from: #89b4fa var(--tw-gradient-from-position);
+    --tw-gradient-to: #89b4fa00 var(--tw-gradient-to-position);
+    --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to);
+  }
+  
+  .to-\[#74c7ec\] {
+    --tw-gradient-to: #74c7ec var(--tw-gradient-to-position);
+  }
+  
+  .bg-clip-text {
+    -webkit-background-clip: text;
+    background-clip: text;
+  }
+  
+  .text-transparent {
+    color: transparent;
+  }
+}

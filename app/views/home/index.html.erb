@@ -1,27 +1,62 @@
-<div class="max-w-4xl mx-auto text-center py-8 px-4 sm:py-12">
-  <h1 class="text-3xl sm:text-4xl lg:text-5xl font-bold mb-4 sm:mb-6 text-[#cdd6f4] leading-tight animate-fade-in-up">Welcome to LinkVault</h1>
-  <p class="text-lg sm:text-xl mb-6 sm:mb-8 text-[#bac2de] max-w-2xl mx-auto leading-relaxed animate-fade-in-up animate-delay-100">Never lose track of important links again. Save, organize, and access your bookmarks from anywhere.</p>
-  
-  <div class="flex justify-center mt-8 animate-fade-in animate-delay-200">
-    <% if user_signed_in? %>
-      <%= link_to "View My Links", links_path, class: "btn-primary text-lg px-8 py-3" %>
-    <% else %>
-      <p class="text-lg text-[#bac2de]">Already have an account? <%= link_to "Log in here", new_user_session_path, class: "text-[#89b4fa] hover:text-[#74c7ec] underline" %></p>
-    <% end %>
+<!-- Hero Section -->
+<div class="max-w-6xl mx-auto text-center py-12 px-4 sm:py-16">
+  <div class="mb-8 animate-fade-in-up">
+    <%= image_tag "LinkVaultLogo.png", alt: "LinkVault Logo", class: "mx-auto mb-6 w-32 h-32 sm:w-40 sm:h-40" %>
   </div>
   
-  <div class="mt-12 sm:mt-16 grid sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
-    <div class="bg-[#313244] p-6 rounded-lg border border-[#45475a] hover:border-[#89b4fa] hover:shadow-lg hover:shadow-[#89b4fa]/20 hover:scale-[1.02] transition-all duration-300 cursor-default animate-fade-in-up animate-delay-200">
-      <h2 class="text-xl font-semibold mb-3 text-[#cdd6f4]">Save Links</h2>
-      <p class="text-[#bac2de]">Quickly save all your important links in one secure place.</p>
+  <h1 class="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-6 sm:mb-8 leading-tight animate-fade-in-up animate-delay-100">
+    <span class="text-[#cdd6f4]">Welcome to</span> <span class="text-[#89b4fa]">LinkVault</span>
+  </h1>
+  
+  <p class="text-lg sm:text-xl md:text-2xl mb-8 sm:mb-12 text-[#bac2de] max-w-3xl mx-auto leading-relaxed animate-fade-in-up animate-delay-200">
+    Never lose track of important links again. Save, organize, and access your bookmarks from anywhere with style and simplicity.
+  </p>
+  
+  <div class="flex flex-col items-center gap-4 sm:gap-6 animate-fade-in animate-delay-300">
+    <% if user_signed_in? %>
+      <%= link_to "View My Links", links_path, class: "btn-primary text-lg sm:text-xl px-8 sm:px-12 py-4 sm:py-5 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105 font-semibold w-full sm:w-auto max-w-sm text-center" %>
+    <% else %>
+      <%= link_to "Start Managing Your Links", new_user_session_path, class: "btn-primary text-lg sm:text-xl px-6 sm:px-12 py-4 sm:py-5 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105 font-semibold w-full sm:w-auto max-w-sm text-center" %>
+      <div class="flex flex-col items-center gap-2 sm:gap-3 mt-2">
+        <p class="text-base sm:text-lg text-[#bac2de] text-center">Already have an account?</p>
+        <%= link_to "Sign in here", new_user_session_path, class: "text-[#89b4fa] hover:text-[#74c7ec] underline font-medium text-base sm:text-lg px-3 sm:px-4 py-2 rounded-lg hover:bg-[#89b4fa]/10 transition-all duration-300" %>
+      </div>
+    <% end %>
+  </div>
+</div>
+
+<!-- Features Section -->
+<div class="max-w-6xl mx-auto px-4 py-16">
+  <h2 class="text-4xl sm:text-5xl lg:text-6xl font-bold text-center mb-16 text-[#cdd6f4] animate-fade-in-up">
+    Everything you need to manage your links
+  </h2>
+  
+  <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-12 lg:gap-16">
+    <!-- Save Links Feature -->
+    <div class="group bg-[#313244] p-10 rounded-2xl border border-[#45475a] hover:border-[#89b4fa] hover:shadow-2xl hover:shadow-[#89b4fa]/20 hover:scale-105 transition-all duration-500 cursor-default animate-fade-in-up animate-delay-100">
+      <div class="w-24 h-24 bg-[#89b4fa]/20 rounded-2xl flex items-center justify-center mb-8 group-hover:bg-[#89b4fa]/30 transition-colors duration-300">
+        <div class="text-6xl">🔗</div>
+      </div>
+      <h3 class="text-3xl font-bold mb-6 text-[#cdd6f4]">Save Links</h3>
+      <p class="text-[#bac2de] text-xl leading-relaxed">Quickly save all your important links in one secure place with just a click.</p>
     </div>
-    <div class="bg-[#313244] p-6 rounded-lg border border-[#45475a] hover:border-[#a6e3a1] hover:shadow-lg hover:shadow-[#a6e3a1]/20 hover:scale-[1.02] transition-all duration-300 cursor-default animate-fade-in-up animate-delay-300">
-      <h2 class="text-xl font-semibold mb-3 text-[#cdd6f4]">Add Tags</h2>
-      <p class="text-[#bac2de]">Organize your links with tags for easy filtering and searching.</p>
+
+    <!-- Add Tags Feature -->
+    <div class="group bg-[#313244] p-10 rounded-2xl border border-[#45475a] hover:border-[#a6e3a1] hover:shadow-2xl hover:shadow-[#a6e3a1]/20 hover:scale-105 transition-all duration-500 cursor-default animate-fade-in-up animate-delay-200">
+      <div class="w-24 h-24 bg-[#a6e3a1]/20 rounded-2xl flex items-center justify-center mb-8 group-hover:bg-[#a6e3a1]/30 transition-colors duration-300">
+        <div class="text-6xl">🏷️</div>
+      </div>
+      <h3 class="text-3xl font-bold mb-6 text-[#cdd6f4]">Smart Tags</h3>
+      <p class="text-[#bac2de] text-xl leading-relaxed">Organize your links with intelligent tags for easy filtering and searching.</p>
     </div>
-    <div class="bg-[#313244] p-6 rounded-lg border border-[#45475a] hover:border-[#f9e2af] hover:shadow-lg hover:shadow-[#f9e2af]/20 hover:scale-[1.02] transition-all duration-300 cursor-default animate-fade-in-up animate-delay-300 sm:animate-delay-300 lg:animate-delay-300">
-      <h2 class="text-xl font-semibold mb-3 text-[#cdd6f4]">Track Reading</h2>
-      <p class="text-[#bac2de]">Mark links as read or unread to keep track of what you've viewed.</p>
+
+    <!-- Track Reading Feature -->
+    <div class="group bg-[#313244] p-10 rounded-2xl border border-[#45475a] hover:border-[#f9e2af] hover:shadow-2xl hover:shadow-[#f9e2af]/20 hover:scale-105 transition-all duration-500 cursor-default animate-fade-in-up animate-delay-300">
+      <div class="w-24 h-24 bg-[#f9e2af]/20 rounded-2xl flex items-center justify-center mb-8 group-hover:bg-[#f9e2af]/30 transition-colors duration-300">
+        <div class="text-6xl">✅</div>
+      </div>
+      <h3 class="text-3xl font-bold mb-6 text-[#cdd6f4]">Read Tracking</h3>
+      <p class="text-[#bac2de] text-xl leading-relaxed">Mark links as read or unread to keep track of your reading progress.</p>
     </div>
   </div>
 </div>

@@ -48,9 +48,10 @@
       <header class="bg-[#181825] shadow-md py-4">
         <div class="container mx-auto px-4 flex justify-between items-center">
           <div class="flex items-center space-x-4">
-            <h1 class="text-xl sm:text-2xl font-bold text-[#cdd6f4]">
-              <%= link_to "LinkVault", root_path, class: "text-[#cdd6f4] hover:text-[#cdd6f4]" %>
-            </h1>
+            <%= link_to root_path, class: "flex items-center space-x-3 text-[#cdd6f4] hover:text-[#cdd6f4] transition-all duration-200" do %>
+              <%= image_tag "LinkVaultLogosmall.png", alt: "LinkVault Logo", class: "h-10 w-10" %>
+              <h1 class="text-xl sm:text-2xl font-bold">LinkVault</h1>
+            <% end %>
           </div>
           <nav class="flex items-center space-x-3">
             <% if user_signed_in? %>
@@ -87,17 +88,44 @@
         <%= yield %>
       </main>
 
-      <footer class="bg-[#181825] text-[#6c7086] py-6 mt-auto">
-        <div class="container mx-auto px-4 text-center">
-          <p>LinkVault &copy;
-            <%= Date.today.year %>
-            | Your personal bookmark manager</p>
-          <p class="mt-2">Made with 💜 by
-            <a
-              href="https://www.baniobits.dev/"
-              class="text-[#89b4fa] hover:text-[#74c7ec]"
-              target="_blank"
-            >Baniobits</a></p>
+      <footer class="bg-[#181825] border-t border-[#313244] py-12 mt-auto">
+        <div class="container mx-auto px-4">
+          <div class="flex flex-col md:flex-row justify-between items-center space-y-6 md:space-y-0">
+            <!-- Left side - Logo and description -->
+            <div class="flex flex-col items-center md:items-start space-y-3">
+              <div class="flex items-center space-x-3">
+                <%= image_tag "LinkVaultLogosmall.png", alt: "LinkVault Logo", class: "h-8 w-8" %>
+                <h3 class="text-xl font-bold text-[#cdd6f4]">LinkVault</h3>
+              </div>
+              <p class="text-[#6c7086] text-center md:text-left">Your personal bookmark manager</p>
+            </div>
+            
+            <!-- Center - Quick links -->
+            <div class="flex items-center space-x-8 text-sm">
+              <% if user_signed_in? %>
+                <%= link_to "Dashboard", dashboard_path, class: "text-[#bac2de] hover:text-[#89b4fa] transition-colors duration-300 font-medium" %>
+                <%= link_to "My Links", links_path, class: "text-[#bac2de] hover:text-[#89b4fa] transition-colors duration-300 font-medium" %>
+              <% else %>
+                <%= link_to "Sign In", new_user_session_path, class: "text-[#bac2de] hover:text-[#89b4fa] transition-colors duration-300 font-medium" %>
+              <% end %>
+            </div>
+            
+            <!-- Right side - Credits -->
+            <div class="text-center md:text-right">
+              <p class="text-[#6c7086] text-sm mb-2">© <%= Date.today.year %> LinkVault</p>
+              <p class="text-sm">
+                <span class="text-[#6c7086]">Crafted with</span>
+                <span class="text-[#f38ba8] mx-1">💜</span>
+                <span class="text-[#6c7086]">by</span>
+                <a
+                  href="https://www.baniobits.dev/"
+                  class="text-[#89b4fa] hover:text-[#74c7ec] font-medium ml-1 px-2 py-1 rounded hover:bg-[#89b4fa]/10 transition-all duration-300"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >Baniobits</a>
+              </p>
+            </div>
+          </div>
         </div>
       </footer>
     </div>
