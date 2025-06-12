@@ -31,6 +31,9 @@
             <% if user_signed_in? %>
               <%= link_to "Dashboard", dashboard_path, class: "text-[#cdd6f4] hover:text-[#89b4fa] transition-colors text-sm font-medium px-3 py-2 rounded-md hover:bg-[#313244]" %>
               <%= link_to "Links", links_path, class: "text-[#cdd6f4] hover:text-[#89b4fa] transition-colors text-sm font-medium px-3 py-2 rounded-md hover:bg-[#313244]" %>
+              <% if current_user.admin? %>
+                <%= link_to "Admin", admin_root_path, class: "text-[#a6e3a1] hover:text-[#94e2d5] transition-colors text-sm font-medium px-3 py-2 rounded-md hover:bg-[#313244]" %>
+              <% end %>
               <%= button_to "Logout",
               destroy_user_session_path,
               method: :delete,
@@ -43,6 +46,18 @@
       </header>
 
       <main class="container mx-auto px-4 py-8 flex-grow">
+        <% if flash[:alert] %>
+          <div class="bg-[#f38ba8]/20 p-3 rounded border border-[#f38ba8] mb-4 alert">
+            <%= flash[:alert] %>
+          </div>
+        <% end %>
+
+        <% if flash[:notice] %>
+          <div class="bg-[#a6e3a1]/20 p-3 rounded border border-[#a6e3a1] mb-4">
+            <%= flash[:notice] %>
+          </div>
+        <% end %>
+
         <%= yield %>
       </main>
 

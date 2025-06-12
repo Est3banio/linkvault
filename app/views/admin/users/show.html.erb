@@ -1,0 +1,72 @@
+<% content_for :title, "Admin - #{@user.email}" %>
+
+<div class="flex justify-between items-center mb-6">
+  <h1 class="text-3xl font-bold text-[#cdd6f4]">User Details</h1>
+  <div class="flex space-x-2">
+    <%= link_to "Edit", edit_admin_user_path(@user), class: "btn" %>
+    <%= link_to "Back to Users", admin_users_path, class: "btn" %>
+  </div>
+</div>
+
+<div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+  <div class="card">
+    <h2 class="text-xl font-semibold text-[#cdd6f4] mb-4">User Information</h2>
+    
+    <div class="space-y-4">
+      <div>
+        <label class="block text-sm font-medium text-[#6c7086] mb-1">Email</label>
+        <p class="text-[#cdd6f4] font-medium"><%= @user.email %></p>
+      </div>
+      
+      <div>
+        <label class="block text-sm font-medium text-[#6c7086] mb-1">Role</label>
+        <p>
+          <% if @user.admin? %>
+            <span class="bg-[#a6e3a1]/20 text-[#a6e3a1] px-2 py-1 rounded text-sm font-medium">Administrator</span>
+          <% else %>
+            <span class="bg-[#6c7086]/20 text-[#6c7086] px-2 py-1 rounded text-sm font-medium">User</span>
+          <% end %>
+        </p>
+      </div>
+      
+      <div>
+        <label class="block text-sm font-medium text-[#6c7086] mb-1">Created</label>
+        <p class="text-[#cdd6f4]"><%= @user.created_at.strftime("%B %d, %Y at %I:%M %p") %></p>
+      </div>
+      
+      <div>
+        <label class="block text-sm font-medium text-[#6c7086] mb-1">Last Updated</label>
+        <p class="text-[#cdd6f4]"><%= @user.updated_at.strftime("%B %d, %Y at %I:%M %p") %></p>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2 class="text-xl font-semibold text-[#cdd6f4] mb-4">Statistics</h2>
+    
+    <div class="space-y-4">
+      <div>
+        <label class="block text-sm font-medium text-[#6c7086] mb-1">Total Links</label>
+        <p class="text-2xl font-bold text-[#89b4fa]"><%= @user.links.count %></p>
+      </div>
+      
+      <div>
+        <label class="block text-sm font-medium text-[#6c7086] mb-1">Unread Links</label>
+        <p class="text-2xl font-bold text-[#f9e2af]"><%= @user.links.where(read: false).count %></p>
+      </div>
+      
+      <div>
+        <label class="block text-sm font-medium text-[#6c7086] mb-1">Read Links</label>
+        <p class="text-2xl font-bold text-[#a6e3a1]"><%= @user.links.where(read: true).count %></p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<% if @user != current_user %>
+  <div class="mt-8">
+    <%= button_to "Delete User", admin_user_path(@user), method: :delete, 
+        confirm: "Are you sure you want to delete #{@user.email}? This action cannot be undone.",
+        class: "btn-danger" %>
+  </div>
+<% end %>

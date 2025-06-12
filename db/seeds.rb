@@ -10,7 +10,20 @@
 #     MovieGenre.find_or_create_by!(name: genre_name)
 #   end
 
-User.find_or_create_by!(email: 'banio@example.com') do |user|
-  user.password = 'password123'
-  user.password_confirmation = 'password123'
+# Create admin user
+admin_user = User.find_or_create_by!(email: 'admin@linkvault.local') do |user|
+  user.password = 'admin123456'
+  user.password_confirmation = 'admin123456'
+  user.admin = true
 end
+
+puts "Admin user created: #{admin_user.email} (admin: #{admin_user.admin?})"
+
+# Create regular user
+regular_user = User.find_or_create_by!(email: 'user@linkvault.local') do |user|
+  user.password = 'user123456'
+  user.password_confirmation = 'user123456'
+  user.admin = false
+end
+
+puts "Regular user created: #{regular_user.email} (admin: #{regular_user.admin?})"

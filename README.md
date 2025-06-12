@@ -103,25 +103,53 @@ See `.gitlab-ci.yml` for the complete pipeline configuration.
 
 **Important**: LinkVault uses invitation-only registration. Public sign-up is disabled for security and control.
 
-#### Creating Users via Console
+#### Admin Dashboard
 
-Since public registration is disabled, new users must be created manually via the Rails console:
+LinkVault includes a complete admin dashboard for user management. Admin users can:
 
+- View all registered users
+- Create new user accounts with email/password
+- Edit existing user information and permissions
+- Delete user accounts (except their own)
+- Grant or revoke admin privileges
+
+To access the admin dashboard:
+1. Log in as an admin user
+2. Click the "Admin" link in the navigation (only visible to admins)
+3. Manage users at `/admin/users`
+
+#### Creating Users
+
+**Option 1: Admin Dashboard (Recommended)**
+- Log in as an admin user
+- Navigate to Admin → Users
+- Click "Create New User"
+- Fill in email, password, and admin privileges
+
+**Option 2: Rails Console**
 ```bash
 # Start the Rails console
 rails console
 
-# Create a new user (adjust email and password as needed)
+# Create a regular user
 User.create!(email: "user@example.com", password: "password123", password_confirmation: "password123")
+
+# Create an admin user
+User.create!(email: "admin@example.com", password: "admin123456", password_confirmation: "admin123456", admin: true)
 
 # Verify the user was created
 User.count
 ```
 
+**Option 3: Database Seeds**
+Run `rails db:seed` to create default admin and user accounts:
+- Admin: `admin@linkvault.local` / `admin123456`
+- User: `user@linkvault.local` / `user123456`
+
 #### User Registration Policy
 
 - Public sign-up routes (`/users/sign_up`) are disabled
-- Only administrators can create new user accounts
+- Only administrators can create new user accounts via admin dashboard or console
 - Existing users can log in normally at `/users/sign_in`
 - Password reset functionality remains available for existing users
 

@@ -1,0 +1,57 @@
+<% content_for :title, "Admin - Users" %>
+
+<div class="flex justify-between items-center mb-6">
+  <h1 class="text-3xl font-bold text-[#cdd6f4]">User Management</h1>
+  <%= link_to "Create New User", new_admin_user_path, class: "btn-primary" %>
+</div>
+
+<div class="card">
+  <div class="overflow-x-auto">
+    <table class="w-full">
+      <thead>
+        <tr class="border-b border-[#313244]">
+          <th class="text-left py-3 px-4 font-semibold text-[#cdd6f4]">Email</th>
+          <th class="text-left py-3 px-4 font-semibold text-[#cdd6f4]">Admin</th>
+          <th class="text-left py-3 px-4 font-semibold text-[#cdd6f4]">Links Count</th>
+          <th class="text-left py-3 px-4 font-semibold text-[#cdd6f4]">Created</th>
+          <th class="text-right py-3 px-4 font-semibold text-[#cdd6f4]">Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @users.each do |user| %>
+          <tr class="border-b border-[#313244]/50 hover:bg-[#313244]/30">
+            <td class="py-3 px-4">
+              <%= link_to user.email, admin_user_path(user), class: "text-[#89b4fa] hover:text-[#74c7ec] font-medium" %>
+            </td>
+            <td class="py-3 px-4">
+              <% if user.admin? %>
+                <span class="bg-[#a6e3a1]/20 text-[#a6e3a1] px-2 py-1 rounded text-xs font-medium">Admin</span>
+              <% else %>
+                <span class="bg-[#6c7086]/20 text-[#6c7086] px-2 py-1 rounded text-xs font-medium">User</span>
+              <% end %>
+            </td>
+            <td class="py-3 px-4 text-[#cdd6f4]"><%= user.links.count %></td>
+            <td class="py-3 px-4 text-[#6c7086]"><%= user.created_at.strftime("%b %d, %Y") %></td>
+            <td class="py-3 px-4 text-right">
+              <div class="flex justify-end space-x-2">
+                <%= link_to "View", admin_user_path(user), class: "text-[#89b4fa] hover:text-[#74c7ec] text-sm font-medium" %>
+                <%= link_to "Edit", edit_admin_user_path(user), class: "text-[#f9e2af] hover:text-[#f7d794] text-sm font-medium" %>
+                <% if user != current_user %>
+                  <%= button_to "Delete", admin_user_path(user), method: :delete, 
+                      confirm: "Are you sure you want to delete #{user.email}?",
+                      class: "text-[#f38ba8] hover:text-[#f2d5cf] text-sm font-medium bg-transparent border-none p-0" %>
+                <% end %>
+              </div>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<% if @users.empty? %>
+  <div class="text-center py-12">
+    <p class="text-[#6c7086]">No users found.</p>
+  </div>
+<% end %>
