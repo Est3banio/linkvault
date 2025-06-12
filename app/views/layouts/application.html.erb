@@ -88,6 +88,53 @@
         }
       }
     </script>
+    
+    <!-- Mobile menu toggle script -->
+    <script>
+      document.addEventListener('DOMContentLoaded', function() {
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const hamburgerOpen = document.getElementById('hamburger-open');
+        const hamburgerClose = document.getElementById('hamburger-close');
+        
+        if (mobileMenuButton && mobileMenu) {
+          mobileMenuButton.addEventListener('click', function() {
+            const isExpanded = mobileMenuButton.getAttribute('aria-expanded') === 'true';
+            
+            // Toggle menu visibility
+            mobileMenu.classList.toggle('hidden');
+            
+            // Toggle hamburger icons
+            hamburgerOpen.classList.toggle('hidden');
+            hamburgerClose.classList.toggle('hidden');
+            
+            // Update aria-expanded attribute
+            mobileMenuButton.setAttribute('aria-expanded', !isExpanded);
+          });
+          
+          // Close menu when clicking outside
+          document.addEventListener('click', function(event) {
+            if (!mobileMenuButton.contains(event.target) && !mobileMenu.contains(event.target)) {
+              mobileMenu.classList.add('hidden');
+              hamburgerOpen.classList.remove('hidden');
+              hamburgerClose.classList.add('hidden');
+              mobileMenuButton.setAttribute('aria-expanded', 'false');
+            }
+          });
+          
+          // Close menu on escape key
+          document.addEventListener('keydown', function(event) {
+            if (event.key === 'Escape' && !mobileMenu.classList.contains('hidden')) {
+              mobileMenu.classList.add('hidden');
+              hamburgerOpen.classList.remove('hidden');
+              hamburgerClose.classList.add('hidden');
+              mobileMenuButton.setAttribute('aria-expanded', 'false');
+              mobileMenuButton.focus();
+            }
+          });
+        }
+      });
+    </script>
   </head>
 
   <body>
@@ -100,7 +147,27 @@
               <h1 class="text-xl sm:text-2xl font-bold">LinkVault</h1>
             <% end %>
           </div>
-          <nav class="flex items-center space-x-3">
+          <!-- Mobile menu button -->
+          <button 
+            id="mobile-menu-button" 
+            type="button" 
+            class="md:hidden inline-flex items-center justify-center p-2 rounded-md text-[#cdd6f4] hover:text-[#89b4fa] hover:bg-[#313244] focus:outline-none focus:ring-2 focus:ring-[#89b4fa] transition-colors"
+            aria-controls="mobile-menu" 
+            aria-expanded="false"
+          >
+            <span class="sr-only">Open main menu</span>
+            <!-- Hamburger icon -->
+            <svg id="hamburger-open" class="block h-6 w-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+            </svg>
+            <!-- Close icon -->
+            <svg id="hamburger-close" class="hidden h-6 w-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+            </svg>
+          </button>
+
+          <!-- Desktop navigation -->
+          <nav class="hidden md:flex items-center space-x-3">
             <% if user_signed_in? %>
               <%= link_to "Dashboard", dashboard_path, class: "text-[#cdd6f4] hover:text-[#89b4fa] transition-colors text-sm font-medium px-3 py-2 rounded-md hover:bg-[#313244]" %>
               <%= link_to "Links", links_path, class: "text-[#cdd6f4] hover:text-[#89b4fa] transition-colors text-sm font-medium px-3 py-2 rounded-md hover:bg-[#313244]" %>
@@ -117,6 +184,29 @@
               <%= link_to "Login", new_user_session_path, class: "btn-primary text-sm px-4 py-2" %>
             <% end %>
           </nav>
+        </div>
+
+        <!-- Mobile navigation menu -->
+        <div id="mobile-menu" class="md:hidden hidden bg-[#181825] border-t border-[#313244] transition-all duration-300 ease-in-out">
+          <div class="px-4 pt-2 pb-3 space-y-1 animate-fade-in">
+            <% if user_signed_in? %>
+              <%= link_to "Dashboard", dashboard_path, class: "block text-[#cdd6f4] hover:text-[#89b4fa] hover:bg-[#313244] px-3 py-2 rounded-md text-base font-medium transition-colors" %>
+              <%= link_to "Links", links_path, class: "block text-[#cdd6f4] hover:text-[#89b4fa] hover:bg-[#313244] px-3 py-2 rounded-md text-base font-medium transition-colors" %>
+              <%= link_to "Profile", edit_user_registration_path, class: "block text-[#cdd6f4] hover:text-[#89b4fa] hover:bg-[#313244] px-3 py-2 rounded-md text-base font-medium transition-colors" %>
+              <% if current_user.admin? %>
+                <%= link_to "Admin", admin_root_path, class: "block text-[#a6e3a1] hover:text-[#94e2d5] hover:bg-[#313244] px-3 py-2 rounded-md text-base font-medium transition-colors" %>
+              <% end %>
+              <div class="pt-2">
+                <%= button_to "Logout",
+                destroy_user_session_path,
+                method: :delete,
+                data: { turbo_method: :delete },
+                class: "btn w-full text-sm px-3 py-2" %>
+              </div>
+            <% else %>
+              <%= link_to "Login", new_user_session_path, class: "block btn-primary text-center text-sm px-4 py-2 mx-3 rounded-md" %>
+            <% end %>
+          </div>
         </div>
       </header>
 
