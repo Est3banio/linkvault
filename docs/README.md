@@ -5,16 +5,16 @@ Welcome to the LinkVault documentation! This folder contains comprehensive guide
 ## Documentation Index
 
 ### 📋 [Architecture Overview](architecture.md)
-Detailed system design, components, and technical architecture of LinkVault.
+Detailed system design, components, and technical architecture including PWA, admin system, import functionality, and mobile features.
 
 ### 🚀 [Deployment Guide](deployment.md)
-Complete deployment instructions covering Docker, Kamal, development, and production environments.
+Complete deployment instructions covering Docker, Kamal, environment variables, PWA configuration, and production setup.
 
 ### 🤝 [Contributing Guidelines](contribution.md)
-Development workflow, coding standards, GitLab branch strategy, and contribution process.
+Development workflow, coding standards, GitLab branch strategy, testing requirements, and contribution process.
 
 ### 📝 [Changelog](../CHANGELOG.md)
-Project history, version releases, and notable changes.
+Project history, version releases, and notable changes including recent PWA, import, and admin features.
 
 ## Quick Links
 

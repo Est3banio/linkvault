@@ -317,7 +317,8 @@ We follow [Semantic Versioning](https://semver.org/):
 
 ### Getting Help
 
-- **Documentation**: Check `docs/` folder first
+- **Documentation**: Check the [docs/](README.md) folder first, including [Architecture](architecture.md) and [Deployment](deployment.md) guides
+- **Setup Issues**: See the main [README](../README.md) for installation and setup
 - **Discussions**: Use GitLab discussions for questions
 - **Issues**: Create issues for bugs and feature requests
 - **Contact**: Reach out to maintainers for urgent matters

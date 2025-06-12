@@ -8,14 +8,35 @@ LinkVault is a beautifully designed bookmark manager that helps you organize and
 
 ## Features
 
+### Core Functionality
 - 🔐 User authentication with secure password reset
 - 👥 Invitation-only user registration (public sign-up disabled)
 - 📝 Save and organize your web links
 - 🏷️ Tag links for easier organization
 - 🔍 Filter links by tags and read/unread status
 - 📱 Responsive design works on all devices
-- 🖼️ Link previews with images
+- 🖼️ Link previews with images and metadata extraction
 - ⚡ Real-time updates with Hotwire Turbo
+- 📖 Read/unread status tracking
+
+### Admin Management
+- 👑 Complete admin dashboard for user management
+- ✨ Create, edit, and delete user accounts
+- 🛡️ Grant or revoke admin privileges
+- 🎯 Admin-only routes and authentication
+
+### Import & Export
+- 📤 Bulk link import from CSV files with flexible column mapping
+- 🌐 HTML bookmark import (Chrome, Firefox, Netscape format)
+- 🔍 Import preview with duplicate detection
+- ⚙️ Flexible mapping for title, URL, tags, and description fields
+
+### Mobile & PWA
+- 📱 Progressive Web App (PWA) with offline support
+- 🚀 Installable on mobile devices and desktop
+- 📲 Mobile link sharing with auto-fill integration
+- 🔄 Service worker for caching and offline functionality
+- ⚡ App shortcuts for quick actions
 
 ## Screenshots
 
@@ -105,18 +126,29 @@ See `.gitlab-ci.yml` for the complete pipeline configuration.
 
 #### Admin Dashboard
 
-LinkVault includes a complete admin dashboard for user management. Admin users can:
+LinkVault includes a complete admin dashboard for comprehensive user management. Admin users can:
 
-- View all registered users
-- Create new user accounts with email/password
-- Edit existing user information and permissions
-- Delete user accounts (except their own)
-- Grant or revoke admin privileges
+- **View all registered users** with detailed information
+- **Create new user accounts** with email/password
+- **Edit existing user information** and update permissions
+- **Delete user accounts** (with protection - admins cannot delete their own account)
+- **Grant or revoke admin privileges** for other users
+- **Monitor user activity** and account status
 
-To access the admin dashboard:
+**Access Requirements:**
+- Must be logged in as an admin user
+- Admin privileges are managed via the `admin` boolean field in the user model
+
+**Navigation:**
 1. Log in as an admin user
-2. Click the "Admin" link in the navigation (only visible to admins)
-3. Manage users at `/admin/users`
+2. Click the "Admin" link in the top navigation (only visible to admins)
+3. Access the full user management interface at `/admin/users`
+
+**Admin Routes:**
+- `/admin/users` - List all users
+- `/admin/users/new` - Create new user
+- `/admin/users/:id/edit` - Edit user details
+- `/admin/users/:id` - View/delete user (with confirmation)
 
 #### Creating Users
 
@@ -152,6 +184,80 @@ Run `rails db:seed` to create default admin and user accounts:
 - Only administrators can create new user accounts via admin dashboard or console
 - Existing users can log in normally at `/users/sign_in`
 - Password reset functionality remains available for existing users
+
+## Link Import
+
+LinkVault supports bulk importing of links from external sources to help you migrate your existing bookmarks.
+
+### Supported Import Formats
+
+#### CSV Import
+- **Flexible column mapping** - supports various column names
+- **Supported columns**: Title/Name, URL/Link, Tags/Tag, Description/Notes
+- **Duplicate detection** prevents importing the same URL multiple times
+- **Preview interface** lets you review links before importing
+
+#### HTML Bookmark Import
+- **Browser compatibility** - supports Chrome, Firefox, Safari exports
+- **Netscape bookmark format** - standard HTML bookmark format
+- **Hierarchical tags** - converts bookmark folders to tags
+- **Metadata preservation** - imports titles, URLs, and descriptions
+
+### How to Import Links
+
+1. **Navigate to Import**: Go to `/links/import` or use the "Import Links" button
+2. **Choose Format**: Select CSV or HTML file format
+3. **Upload File**: Select your bookmark export file
+4. **Preview & Map**: Review detected links and map columns if needed
+5. **Confirm Import**: Select which links to import and confirm
+
+### Export Your Bookmarks
+
+**From Chrome:**
+1. Chrome Menu → Bookmarks → Bookmark Manager
+2. Click ⋮ (three dots) → Export bookmarks
+3. Save as HTML file
+
+**From Firefox:**
+1. Library → Bookmarks → Show All Bookmarks
+2. Import and Backup → Export Bookmarks to HTML
+3. Save the HTML file
+
+## Progressive Web App (PWA)
+
+LinkVault is a fully featured Progressive Web App that can be installed on your devices for a native app-like experience.
+
+### PWA Features
+
+- **Installable** on mobile devices and desktop computers
+- **Offline support** with service worker caching
+- **App shortcuts** for quick actions (Dashboard, Add Link, Browse Links)
+- **Mobile-optimized** interface with touch-friendly design
+- **Share target** - share links directly from other apps on mobile
+
+### Installation
+
+#### Mobile Devices (iOS/Android)
+1. Open LinkVault in your mobile browser
+2. Look for "Add to Home Screen" or "Install App" prompt
+3. Follow the installation prompts
+4. Launch from your home screen like a native app
+
+#### Desktop (Chrome/Edge/Safari)
+1. Open LinkVault in your browser
+2. Look for the install icon in the address bar
+3. Click "Install LinkVault" when prompted
+4. Access from your applications menu or desktop
+
+### Mobile Link Sharing
+
+When LinkVault is installed as a PWA, you can share links directly from other apps:
+
+1. **From any app** with sharing capability
+2. **Select "LinkVault"** in the share menu
+3. **Form auto-fills** with the shared URL and extracted metadata
+4. **Add tags and description** as needed
+5. **Save immediately** to your LinkVault
 
 ## Testing
 

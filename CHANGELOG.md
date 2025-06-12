@@ -7,6 +7,54 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+- Comprehensive documentation review and updates
+- Enhanced feature descriptions across all documentation files
+- Cross-referencing between documentation files
+- Updated API endpoint documentation
+
+## [1.4.0] - 2025-01-06
+
+### Added
+- **Progressive Web App (PWA) Support**
+  - Complete PWA configuration with web app manifest
+  - Service worker for offline functionality and caching
+  - App shortcuts for quick actions (Dashboard, Add Link, Browse Links)
+  - Mobile-optimized interface with installability support
+  - Share target API for direct link sharing from mobile apps
+
+- **Bulk Link Import System**
+  - CSV import with flexible column mapping (title/name, url/link, tags/tag, description/notes)
+  - HTML bookmark import supporting Chrome, Firefox, Netscape format
+  - Import preview interface with duplicate detection
+  - Batch selection and confirmation workflow
+
+- **Mobile Link Sharing with Auto-fill**
+  - Web Share Target API integration for mobile sharing
+  - LinkMetadataService for automatic page metadata extraction
+  - Smart form pre-filling with title and description
+  - Open Graph metadata parsing for rich link previews
+
+- **Complete Admin System**
+  - Admin dashboard for comprehensive user management
+  - Create, edit, delete user accounts with admin protection
+  - Grant/revoke admin privileges interface
+  - Admin-only routes with authentication concern
+  - Protected admin navigation (visible only to admins)
+
+### Enhanced
+- **User Registration System**
+  - Custom registration controller with enhanced security
+  - Registration disabled by default (invitation-only)
+  - Flexible password update without current password requirement
+  - Integration tests for registration security
+
+- **Link Management Improvements**
+  - Read/unread status tracking for all links
+  - Enhanced metadata extraction and image URL storage
+  - Improved tag filtering and management
+  - Turbo Stream support for real-time UI updates
+
 ## [1.3.0] - 2025-01-06
 
 ### Added

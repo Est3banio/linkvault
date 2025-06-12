@@ -4,6 +4,8 @@
 
 LinkVault supports multiple deployment strategies to accommodate different environments and requirements. This document covers all supported deployment methods from development to production.
 
+For system architecture details, see the [Architecture Overview](architecture.md).
+
 ## Deployment Methods
 
 ### 1. Development Environment
@@ -115,6 +117,9 @@ docker run -d -p 3000:80 --env-file .env --name linkvault linkvault
 - `WEB_CONCURRENCY` - Number of Puma worker processes (default: 1)
 - `RAILS_LOG_LEVEL` - Log level (default: info)
 - `JOB_CONCURRENCY` - Solid Queue worker concurrency (default: 1)
+- `RAILS_SERVE_STATIC_FILES` - Serve static files (enabled by default in production)
+- `RAILS_FORCE_SSL` - Force HTTPS connections (recommended for production)
+- `MAILER_DEFAULT_HOST` - Host for email links (default: linkvault.baniobits.work)
 
 #### Docker Compose Production
 
@@ -384,6 +389,8 @@ env:
 ```
 
 ## CI/CD Integration
+
+For detailed information about the development workflow and CI/CD pipeline, see the [Contributing Guidelines](contribution.md).
 
 ### GitLab CI/CD Pipeline
 
