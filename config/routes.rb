@@ -1,7 +1,19 @@
 # frozen_string_literal: true
 
 Rails.application.routes.draw do
-  devise_for :users, skip: [:registrations]
+  devise_for :users, skip: [:registrations], controllers: {
+    registrations: 'users/registrations'
+  }
+  devise_scope :user do
+    resource :registration,
+             only: [:show, :edit, :update, :destroy],
+             path: 'users',
+             path_names: { edit: 'edit' },
+             controller: 'users/registrations',
+             as: :user_registration do
+      get :cancel
+    end
+  end
 
   root 'home#index'
   get 'dashboard', to: 'home#dashboard'

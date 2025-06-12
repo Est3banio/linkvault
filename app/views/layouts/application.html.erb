@@ -57,6 +57,7 @@
             <% if user_signed_in? %>
               <%= link_to "Dashboard", dashboard_path, class: "text-[#cdd6f4] hover:text-[#89b4fa] transition-colors text-sm font-medium px-3 py-2 rounded-md hover:bg-[#313244]" %>
               <%= link_to "Links", links_path, class: "text-[#cdd6f4] hover:text-[#89b4fa] transition-colors text-sm font-medium px-3 py-2 rounded-md hover:bg-[#313244]" %>
+              <%= link_to "Profile", edit_user_registration_path, class: "text-[#cdd6f4] hover:text-[#89b4fa] transition-colors text-sm font-medium px-3 py-2 rounded-md hover:bg-[#313244]" %>
               <% if current_user.admin? %>
                 <%= link_to "Admin", admin_root_path, class: "text-[#a6e3a1] hover:text-[#94e2d5] transition-colors text-sm font-medium px-3 py-2 rounded-md hover:bg-[#313244]" %>
               <% end %>
