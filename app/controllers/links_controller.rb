@@ -136,6 +136,57 @@ class LinksController < ApplicationController
     redirect_to links_path, notice: notice_parts.join(', ')
   end
 
+  def export
+  end
+
+  def export_download
+    format = params[:format]
+    include_read = params[:include_read] == '1'
+    include_unread = params[:include_unread] == '1'
+    tag_filter = params[:tag_filter].presence
+
+    # Validate that at least one status is selected
+    unless include_read || include_unread
+      redirect_to export_links_path, alert: 'Please select at least one option (read or unread links).'
+      return
+    end
+
+    # Build the query
+    links = current_user.links.includes(:tags)
+    
+    # Filter by read status
+    if include_read && include_unread
+      # Include both - no additional filter needed
+    elsif include_read
+      links = links.where(read: true)
+    elsif include_unread
+      links = links.where(read: false)
+    end
+    
+    # Filter by tag if specified
+    if tag_filter.present?
+      links = links.joins(:tags).where(tags: { name: tag_filter })
+    end
+
+    # Check if there are any links to export
+    if links.empty?
+      redirect_to export_links_path, alert: 'No links found matching your export criteria.'
+      return
+    end
+
+    # Generate export based on format
+    case format
+    when 'csv'
+      export_csv(links)
+    when 'json'
+      export_json(links)
+    when 'html'
+      export_html(links)
+    else
+      redirect_to export_links_path, alert: 'Please select an export format.'
+    end
+  end
+
   private
 
   def set_link
@@ -303,5 +354,116 @@ class LinksController < ApplicationController
     URI.parse(url).host&.gsub(/^www\./, '') || url
   rescue URI::InvalidURIError
     url
+  end
+
+  def export_csv(links)
+    require 'csv'
+    
+    filename = "linkvault_export_#{Date.current.strftime('%Y-%m-%d')}.csv"
+    
+    csv_data = CSV.generate(headers: true) do |csv|
+      csv << ['title', 'url', 'tags', 'created_at', 'read', 'description']
+      
+      links.find_each do |link|
+        csv << [
+          link.title,
+          link.url,
+          link.tags.is_a?(String) ? link.tags : link.tags.pluck(:name).join(', '),
+          link.created_at.strftime('%Y-%m-%d %H:%M:%S'),
+          link.read? ? 'true' : 'false',
+          link.description
+        ]
+      end
+    end
+    
+    send_data csv_data, filename: filename, type: 'text/csv'
+  end
+
+  def export_json(links)
+    filename = "linkvault_export_#{Date.current.strftime('%Y-%m-%d')}.json"
+    
+    json_data = {
+      exported_at: Time.current.iso8601,
+      total_links: links.count,
+      links: links.map do |link|
+        {
+          id: link.id,
+          title: link.title,
+          url: link.url,
+          description: link.description,
+          image_url: link.image_url,
+          tags: link.tags.is_a?(String) ? link.tags.split(', ') : link.tags.pluck(:name),
+          read: link.read?,
+          created_at: link.created_at.iso8601,
+          updated_at: link.updated_at.iso8601
+        }
+      end
+    }
+    
+    send_data json_data.to_json, filename: filename, type: 'application/json'
+  end
+
+  def export_html(links)
+    filename = "linkvault_export_#{Date.current.strftime('%Y-%m-%d')}.html"
+    
+    # Group links by tags for folder structure
+    tagged_links = {}
+    untagged_links = []
+    
+    links.find_each do |link|
+      link_tags = link.tags.is_a?(String) ? link.tags.split(', ').reject(&:blank?) : link.tags.pluck(:name)
+      
+      if link_tags.any?
+        link_tags.each do |tag|
+          tagged_links[tag] ||= []
+          tagged_links[tag] << link
+        end
+      else
+        untagged_links << link
+      end
+    end
+    
+    html_content = <<~HTML
+      <!DOCTYPE NETSCAPE-Bookmark-file-1>
+      <!-- This is an automatically generated file.
+           It will be read and overwritten.
+           DO NOT EDIT! -->
+      <META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=UTF-8">
+      <TITLE>LinkVault Bookmarks</TITLE>
+      <H1>LinkVault Bookmarks</H1>
+      <DL><p>
+    HTML
+    
+    # Add tagged links in folders
+    tagged_links.each do |tag, tag_links|
+      html_content += "    <DT><H3>#{CGI.escapeHTML(tag)}</H3>\n"
+      html_content += "    <DL><p>\n"
+      tag_links.each do |link|
+        add_time = link.created_at.to_i
+        html_content += "        <DT><A HREF=\"#{CGI.escapeHTML(link.url)}\" ADD_DATE=\"#{add_time}\">#{CGI.escapeHTML(link.title)}</A>\n"
+        if link.description.present?
+          html_content += "        <DD>#{CGI.escapeHTML(link.description)}\n"
+        end
+      end
+      html_content += "    </DL><p>\n"
+    end
+    
+    # Add untagged links
+    if untagged_links.any?
+      html_content += "    <DT><H3>Uncategorized</H3>\n"
+      html_content += "    <DL><p>\n"
+      untagged_links.each do |link|
+        add_time = link.created_at.to_i
+        html_content += "        <DT><A HREF=\"#{CGI.escapeHTML(link.url)}\" ADD_DATE=\"#{add_time}\">#{CGI.escapeHTML(link.title)}</A>\n"
+        if link.description.present?
+          html_content += "        <DD>#{CGI.escapeHTML(link.description)}\n"
+        end
+      end
+      html_content += "    </DL><p>\n"
+    end
+    
+    html_content += "</DL><p>\n"
+    
+    send_data html_content, filename: filename, type: 'text/html'
   end
 end

@@ -22,6 +22,8 @@ Rails.application.routes.draw do
       get :import
       post :import_preview
       post :import_confirm
+      get :export
+      post :export_download
     end
   end
 

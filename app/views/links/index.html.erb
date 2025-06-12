@@ -8,6 +8,10 @@
         <span>📁</span>
         Import Links
       <% end %>
+      <%= link_to export_links_path, class: "inline-flex items-center gap-2 bg-gradient-to-r from-[#f9e2af] to-[#fab387] text-white font-semibold px-4 py-2 rounded-lg hover:from-[#fab387] hover:to-[#f38ba8] transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl" do %>
+        <span>💾</span>
+        Export Links
+      <% end %>
       <%= link_to new_link_path, class: "inline-flex items-center gap-2 bg-gradient-to-r from-[#74c7ec] to-[#89b4fa] text-white font-semibold px-4 py-2 rounded-lg hover:from-[#89b4fa] hover:to-[#b4befe] transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl" do %>
         <span>➕</span>
         Add New Link
