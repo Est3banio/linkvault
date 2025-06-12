@@ -11,32 +11,63 @@
   <% end %>
 
   <div>
-    <%= f.label :title, class: "block text-sm font-medium mb-1" %>
-    <%= f.text_field :title, class: "w-full" %>
+    <%= f.label :title, class: "flex items-center gap-2 text-sm font-medium mb-2" do %>
+      <span class="text-lg">📝</span>
+      Title
+    <% end %>
+    <%= f.text_field :title, class: "w-full pl-4", placeholder: "Give your link a memorable title..." %>
   </div>
 
   <div>
-    <%= f.label :url, class: "block text-sm font-medium mb-1" %>
-    <%= f.text_field :url, class: "w-full", placeholder: "https://example.com" %>
+    <%= f.label :url, class: "flex items-center gap-2 text-sm font-medium mb-2" do %>
+      <span class="text-lg">🔗</span>
+      URL
+    <% end %>
+    <%= f.text_field :url, class: "w-full pl-4", placeholder: "Enter the link you want to save (e.g. https://example.com)" %>
   </div>
 
   <div>
-    <%= f.label :description, class: "block text-sm font-medium mb-1" %>
-    <%= f.text_area :description, class: "w-full", rows: 3 %>
+    <%= f.label :description, class: "flex items-center gap-2 text-sm font-medium mb-2" do %>
+      <span class="text-lg">📄</span>
+      Description
+      <span class="text-xs text-[#a6adc8] font-normal">(optional)</span>
+    <% end %>
+    <%= f.text_area :description, class: "w-full pl-4", rows: 3, placeholder: "Add a note about why you're saving this link..." %>
   </div>
 
-  <div>
-    <%= f.label :tags, class: "block text-sm font-medium mb-1" %>
-    <%= f.text_field :tags, class: "w-full", placeholder: "tag1, tag2, tag3" %>
-    <p class="text-xs text-[#a6adc8] mt-1">Separate tags with commas</p>
+  <div data-controller="tag-input">
+    <%= f.label :tags, class: "flex items-center gap-2 text-sm font-medium mb-2" do %>
+      <span class="text-lg">🏷️</span>
+      Tags
+      <span class="text-xs text-[#a6adc8] font-normal">(optional)</span>
+    <% end %>
+    <%= f.text_field :tags, class: "w-full pl-4", placeholder: "work, tutorial, inspiration (separate with commas)", list: "available-tags", data: { tag_input_target: "input", action: "input->tag-input#updatePreview" } %>
+    <% if defined?(@available_tags) && @available_tags.any? %>
+      <datalist id="available-tags">
+        <% @available_tags.each do |tag_name| %>
+          <option value="<%= tag_name %>">
+        <% end %>
+      </datalist>
+    <% end %>
+    <div data-tag-input-target="preview" class="mt-2 min-h-[2rem]"></div>
+    <p class="text-xs text-[#a6adc8] mt-1">💡 Start typing to see suggestions from your existing tags</p>
   </div>
 
-  <div class="flex items-center gap-2">
-    <%= f.check_box :read, class: "h-4 w-4 rounded border-[#585b70] bg-[#313244]" %>
-    <%= f.label :read, "Mark as read", class: "text-sm font-medium" %>
+  <div class="flex items-center justify-between p-4 bg-[#45475a]/30 rounded-lg border border-[#585b70]/50">
+    <div class="flex items-center gap-3">
+      <span class="text-lg">👁️</span>
+      <div>
+        <%= f.label :read, "Mark as already read", class: "text-sm font-medium cursor-pointer" %>
+        <p class="text-xs text-[#a6adc8]">Toggle if you've already read this content</p>
+      </div>
+    </div>
+    <label class="relative inline-flex items-center cursor-pointer">
+      <%= f.check_box :read, class: "sr-only peer", id: "read-toggle" %>
+      <div class="w-11 h-6 bg-[#585b70] peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-[#a6e3a1]"></div>
+    </label>
   </div>
 
-  <div class="pt-2">
-    <%= f.submit "Save", class: "btn-primary" %>
+  <div class="pt-4">
+    <%= f.submit "💾 Save Link", class: "w-full bg-gradient-to-r from-[#74c7ec] to-[#89b4fa] text-[#181825] font-semibold py-3 px-6 rounded-lg hover:from-[#89b4fa] hover:to-[#b4befe] transition-all duration-300 transform hover:scale-[1.02] shadow-lg hover:shadow-xl" %>
   </div>
 <% end %>

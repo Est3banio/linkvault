@@ -17,9 +17,12 @@ class LinksController < ApplicationController
 
   def new
     @link = Link.new
+    @available_tags = current_user.links.joins(:tags).group('tags.name').pluck('tags.name').sort
   end
 
-  def edit; end
+  def edit
+    @available_tags = current_user.links.joins(:tags).group('tags.name').pluck('tags.name').sort
+  end
 
   def create
     @link = current_user.links.new(link_params)
@@ -27,6 +30,7 @@ class LinksController < ApplicationController
     if @link.save
       handle_successful_create
     else
+      @available_tags = current_user.links.joins(:tags).group('tags.name').pluck('tags.name').sort
       render :new, status: :unprocessable_entity
     end
   end
@@ -35,6 +39,7 @@ class LinksController < ApplicationController
     if @link.update(link_params)
       redirect_to links_path, notice: t('links.notices.updated')
     else
+      @available_tags = current_user.links.joins(:tags).group('tags.name').pluck('tags.name').sort
       render :edit, status: :unprocessable_entity
     end
   end

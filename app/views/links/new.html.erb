@@ -1,14 +1,18 @@
-<div class="max-w-md mx-auto">
-  <div class="mb-6">
-    <h1 class="text-2xl font-bold text-[#cdd6f4]">Add New Link</h1>
-    <p class="text-[#a6adc8]">Save a link to your collection</p>
+<div class="max-w-lg mx-auto">
+  <div class="mb-8 text-center">
+    <div class="text-5xl mb-4">🔗✨</div>
+    <h1 class="text-3xl font-bold text-[#cdd6f4] mb-2">Add New Link</h1>
+    <p class="text-[#a6adc8] text-lg">Save something awesome to your collection</p>
   </div>
 
-  <div class="card">
+  <div class="card shadow-xl border-2 border-[#585b70]/50 hover:border-[#89b4fa]/30 transition-all duration-300">
     <%= render "form", link: @link %>
   </div>
 
-  <div class="mt-4">
-    <%= link_to "← Back to list", links_path, class: "text-[#89b4fa]" %>
+  <div class="mt-6 text-center">
+    <%= link_to links_path, class: "inline-flex items-center gap-2 text-[#89b4fa] hover:text-[#74c7ec] transition-colors" do %>
+      <span>←</span>
+      Back to your links
+    <% end %>
   </div>
 </div>
