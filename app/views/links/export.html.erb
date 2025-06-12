@@ -1,0 +1,97 @@
+<div class="max-w-2xl mx-auto">
+  <div class="mb-6">
+    <h1 class="text-3xl font-bold text-[#cdd6f4] mb-2">Export Links</h1>
+    <p class="text-[#a6adc8]">Export your saved links to backup your data or migrate to other tools.</p>
+  </div>
+
+  <div class="card">
+    <%= form_with url: export_download_links_path, method: :post, local: true, class: "space-y-6" do |f| %>
+      <div>
+        <h2 class="text-xl font-semibold mb-4">Export Format</h2>
+        <div class="space-y-3">
+          <label class="flex items-center p-4 border-2 border-[#313244] rounded-lg hover:border-[#74c7ec] transition-colors cursor-pointer">
+            <%= f.radio_button :format, "csv", class: "mr-3" %>
+            <div>
+              <div class="font-medium text-[#cdd6f4]">CSV (Comma-Separated Values)</div>
+              <div class="text-sm text-[#a6adc8]">Basic format with title, url, tags, and created date</div>
+            </div>
+          </label>
+
+          <label class="flex items-center p-4 border-2 border-[#313244] rounded-lg hover:border-[#74c7ec] transition-colors cursor-pointer">
+            <%= f.radio_button :format, "json", class: "mr-3" %>
+            <div>
+              <div class="font-medium text-[#cdd6f4]">JSON</div>
+              <div class="text-sm text-[#a6adc8]">Full structured data including all metadata and properties</div>
+            </div>
+          </label>
+
+          <label class="flex items-center p-4 border-2 border-[#313244] rounded-lg hover:border-[#74c7ec] transition-colors cursor-pointer">
+            <%= f.radio_button :format, "html", class: "mr-3" %>
+            <div>
+              <div class="font-medium text-[#cdd6f4]">HTML Bookmarks</div>
+              <div class="text-sm text-[#a6adc8]">Standard browser bookmark format (importable in Chrome, Firefox, etc.)</div>
+            </div>
+          </label>
+        </div>
+      </div>
+
+      <div>
+        <h2 class="text-xl font-semibold mb-4">Export Options</h2>
+        <div class="space-y-3">
+          <label class="flex items-center">
+            <%= f.check_box :include_read, class: "mr-3" %>
+            <span class="text-[#cdd6f4]">Include read links</span>
+          </label>
+
+          <label class="flex items-center">
+            <%= f.check_box :include_unread, class: "mr-3" %>
+            <span class="text-[#cdd6f4]">Include unread links</span>
+          </label>
+
+          <div>
+            <%= f.label :tag_filter, "Filter by tag (optional):", class: "block text-sm font-medium mb-1" %>
+            <%= f.text_field :tag_filter, placeholder: "Enter tag name to export only links with this tag", class: "w-full" %>
+          </div>
+        </div>
+      </div>
+
+      <div class="flex justify-between items-center pt-6 border-t border-[#313244]">
+        <%= link_to "← Back to Links", links_path, class: "text-[#a6adc8] hover:text-[#cdd6f4] transition-colors" %>
+        
+        <%= f.submit "Export Links", class: "inline-flex items-center gap-2 bg-gradient-to-r from-[#f9e2af] to-[#fab387] text-white font-semibold px-6 py-3 rounded-lg hover:from-[#fab387] hover:to-[#f38ba8] transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl" %>
+      </div>
+    <% end %>
+  </div>
+
+  <% if current_user.links.any? %>
+    <div class="mt-6 card">
+      <h3 class="text-lg font-medium mb-2">Export Summary</h3>
+      <div class="text-[#a6adc8] space-y-1">
+        <p>Total links: <%= current_user.links.count %></p>
+        <p>Read links: <%= current_user.links.where(read: true).count %></p>
+        <p>Unread links: <%= current_user.links.where(read: false).count %></p>
+        <p>Total tags: <%= current_user.links.joins(:tags).group('tags.name').count.keys.length %></p>
+      </div>
+    </div>
+  <% else %>
+    <div class="mt-6 card text-center py-8">
+      <div class="text-[#a6adc8]">
+        <div class="text-4xl mb-2">📭</div>
+        <p>You don't have any links to export yet.</p>
+      </div>
+    </div>
+  <% end %>
+</div>
+
+<script>
+  // Pre-select both read and unread options by default
+  document.addEventListener('DOMContentLoaded', function() {
+    const includeRead = document.querySelector('input[name="include_read"]');
+    const includeUnread = document.querySelector('input[name="include_unread"]');
+    const csvFormat = document.querySelector('input[value="csv"]');
+    
+    if (includeRead) includeRead.checked = true;
+    if (includeUnread) includeUnread.checked = true;
+    if (csvFormat) csvFormat.checked = true;
+  });
+</script>

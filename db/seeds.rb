@@ -17,7 +17,7 @@ admin_user = User.find_or_create_by!(email: 'admin@linkvault.local') do |user|
   user.admin = true
 end
 
-puts "Admin user created: #{admin_user.email} (admin: #{admin_user.admin?})"
+Rails.logger.debug { "Admin user created: #{admin_user.email} (admin: #{admin_user.admin?})" }
 
 # Create regular user
 regular_user = User.find_or_create_by!(email: 'user@linkvault.local') do |user|
@@ -26,4 +26,4 @@ regular_user = User.find_or_create_by!(email: 'user@linkvault.local') do |user|
   user.admin = false
 end
 
-puts "Regular user created: #{regular_user.email} (admin: #{regular_user.admin?})"
+Rails.logger.debug { "Regular user created: #{regular_user.email} (admin: #{regular_user.admin?})" }

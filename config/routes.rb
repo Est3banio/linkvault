@@ -6,7 +6,7 @@ Rails.application.routes.draw do
   }
   devise_scope :user do
     resource :registration,
-             only: [:show, :edit, :update, :destroy],
+             only: %i[show edit update destroy],
              path: 'users',
              path_names: { edit: 'edit' },
              controller: 'users/registrations',
@@ -22,6 +22,8 @@ Rails.application.routes.draw do
       get :import
       post :import_preview
       post :import_confirm
+      get :export
+      post :export_download
     end
   end
 
@@ -29,10 +31,10 @@ Rails.application.routes.draw do
     resources :users
     root 'users#index'
   end
-  
+
   # PWA manifest and service worker
   get '/manifest' => 'pwa#manifest', as: :pwa_manifest
   get '/service-worker' => 'pwa#service_worker', as: :pwa_service_worker
-  
+
   get 'up' => 'rails/health#show', as: :rails_health_check
 end

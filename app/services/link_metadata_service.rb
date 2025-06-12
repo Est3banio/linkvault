@@ -13,7 +13,7 @@ class LinkMetadataService
 
     begin
       page = MetaInspector.new(@url, timeout: 10)
-      
+
       {
         title: extract_title(page),
         description: extract_description(page),
@@ -22,7 +22,7 @@ class LinkMetadataService
       }
     rescue MetaInspector::Error, StandardError => e
       Rails.logger.error "LinkMetadataService error for #{@url}: #{e.message}"
-      { 
+      {
         error: 'Unable to fetch metadata',
         title: extract_title_from_url(@url),
         url: @url
@@ -39,7 +39,7 @@ class LinkMetadataService
   def extract_description(page)
     description = page.best_description&.strip
     return nil if description.blank? || description.length < 10
-    
+
     # Truncate if too long
     description.length > 300 ? "#{description[0..297]}..." : description
   end
@@ -48,7 +48,7 @@ class LinkMetadataService
     # Try Open Graph image first, then other images
     image_url = page.images.best&.strip
     return nil if image_url.blank?
-    
+
     # Ensure it's a valid absolute URL
     begin
       uri = URI.parse(image_url)
@@ -60,25 +60,24 @@ class LinkMetadataService
 
   def extract_title_from_url(url)
     # Fallback: extract title from URL
-    begin
-      uri = URI.parse(url)
-      domain = uri.host&.gsub(/^www\./, '')
-      path = uri.path&.split('/')&.last&.gsub(/[-_]/, ' ')&.titleize
-      
-      if path.present? && path != '/'
-        "#{path} - #{domain}"
-      else
-        domain&.titleize || 'Shared Link'
-      end
-    rescue URI::InvalidURIError
-      'Shared Link'
+
+    uri = URI.parse(url)
+    domain = uri.host&.gsub(/^www\./, '')
+    path = uri.path&.split('/')&.last&.gsub(/[-_]/, ' ')&.titleize
+
+    if path.present? && path != '/'
+      "#{path} - #{domain}"
+    else
+      domain&.titleize || 'Shared Link'
     end
+  rescue URI::InvalidURIError
+    'Shared Link'
   end
 
   def normalize_url(url)
     # Ensure URL has proper protocol
-    return url if url.match?(/\Ahttps?:\/\//)
-    
+    return url if url.match?(%r{\Ahttps?://})
+
     "https://#{url}"
   end
 end
