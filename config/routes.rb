@@ -17,7 +17,13 @@ Rails.application.routes.draw do
 
   root 'home#index'
   get 'dashboard', to: 'home#dashboard'
-  resources :links
+  resources :links do
+    collection do
+      get :import
+      post :import_preview
+      post :import_confirm
+    end
+  end
 
   namespace :admin do
     resources :users

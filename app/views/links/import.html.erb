@@ -1,0 +1,60 @@
+<div class="max-w-2xl mx-auto">
+  <div class="mb-6">
+    <h1 class="text-3xl font-bold text-[#cdd6f4] mb-2">Import Links</h1>
+    <p class="text-[#a6adc8]">Import your bookmarks from CSV files (e.g., Notion exports) or HTML bookmark files (e.g., Chrome, Firefox exports)</p>
+  </div>
+
+  <div class="card">
+    <%= form_with url: import_preview_links_path, multipart: true, local: true, class: "space-y-6" do |f| %>
+      <div>
+        <%= f.label :file, "Select File to Import", class: "block text-sm font-medium mb-2" %>
+        <%= f.file_field :file, 
+            accept: ".csv,.html",
+            class: "w-full file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-[#89b4fa] file:text-[#181825] hover:file:bg-[#74c7ec] file:cursor-pointer cursor-pointer bg-[#313244] border border-[#45475a] rounded-lg p-3 text-[#cdd6f4]" %>
+        <p class="text-sm text-[#a6adc8] mt-2">
+          Supported formats: CSV files with columns like title,url,tags or HTML bookmark exports from browsers
+        </p>
+      </div>
+
+      <div class="flex justify-between items-center">
+        <%= link_to links_path, class: "btn-secondary" do %>
+          ← Back to Links
+        <% end %>
+        <%= f.submit "Preview Import", class: "btn-primary" %>
+      </div>
+    <% end %>
+  </div>
+
+  <div class="card mt-8">
+    <h2 class="text-xl font-semibold mb-4">Supported File Formats</h2>
+    
+    <div class="space-y-6">
+      <div>
+        <h3 class="text-lg font-medium text-[#89b4fa] mb-2">CSV Format</h3>
+        <p class="text-[#a6adc8] mb-3">CSV files should include headers with these column names (case insensitive):</p>
+        <ul class="list-disc list-inside text-[#a6adc8] space-y-1 mb-3">
+          <li><strong>title</strong> or <strong>name</strong> - Link title</li>
+          <li><strong>url</strong> or <strong>link</strong> - Link URL (required)</li>
+          <li><strong>tags</strong> or <strong>tag</strong> - Comma-separated tags</li>
+          <li><strong>description</strong> or <strong>notes</strong> - Link description</li>
+        </ul>
+        <div class="bg-[#1e1e2e] p-3 rounded border-l-4 border-[#89b4fa] text-sm font-mono">
+          <div class="text-[#a6adc8] mb-1">Example CSV:</div>
+          <div class="text-[#cdd6f4]">title,url,tags,description</div>
+          <div class="text-[#cdd6f4]">GitHub,https://github.com,"development,tools",Code hosting platform</div>
+          <div class="text-[#cdd6f4]">Google,https://google.com,"search,web",Search engine</div>
+        </div>
+      </div>
+
+      <div>
+        <h3 class="text-lg font-medium text-[#89b4fa] mb-2">HTML Bookmarks Format</h3>
+        <p class="text-[#a6adc8] mb-3">Standard HTML bookmark files exported from browsers like:</p>
+        <ul class="list-disc list-inside text-[#a6adc8] space-y-1">
+          <li>Chrome (Settings → Bookmarks → Bookmark manager → Export bookmarks)</li>
+          <li>Firefox (Bookmarks → Show All Bookmarks → Import/Export → Export Bookmarks to HTML)</li>
+          <li>Other browsers that use the Netscape bookmark format</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>

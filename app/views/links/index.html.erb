@@ -3,10 +3,16 @@
 <div class="mb-6">
   <div class="flex justify-between items-center mb-4">
     <h1 class="text-3xl font-bold text-[#cdd6f4]">Saved Links</h1>
-    <%= link_to new_link_path, class: "inline-flex items-center gap-2 bg-gradient-to-r from-[#74c7ec] to-[#89b4fa] text-[#181825] font-semibold px-4 py-2 rounded-lg hover:from-[#89b4fa] hover:to-[#b4befe] transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl" do %>
-      <span>➕</span>
-      Add New Link
-    <% end %>
+    <div class="flex space-x-3">
+      <%= link_to import_links_path, class: "inline-flex items-center gap-2 bg-gradient-to-r from-[#a6e3a1] to-[#94e2d5] text-[#181825] font-semibold px-4 py-2 rounded-lg hover:from-[#94e2d5] hover:to-[#89dceb] transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl" do %>
+        <span>📁</span>
+        Import Links
+      <% end %>
+      <%= link_to new_link_path, class: "inline-flex items-center gap-2 bg-gradient-to-r from-[#74c7ec] to-[#89b4fa] text-[#181825] font-semibold px-4 py-2 rounded-lg hover:from-[#89b4fa] hover:to-[#b4befe] transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl" do %>
+        <span>➕</span>
+        Add New Link
+      <% end %>
+    </div>
   </div>
   
   <div class="card mb-6">
