@@ -1,0 +1,102 @@
+<div class="max-w-6xl mx-auto">
+  <div class="mb-6">
+    <h1 class="text-3xl font-bold text-[#cdd6f4] mb-2">Import Preview</h1>
+    <p class="text-[#a6adc8]">Review and select the links you want to import</p>
+  </div>
+
+  <% if @import_preview[:errors].any? %>
+    <div class="card border-l-4 border-[#f38ba8] bg-[#2d1b2e] mb-6">
+      <h3 class="text-lg font-semibold text-[#f38ba8] mb-2">Parsing Errors</h3>
+      <ul class="list-disc list-inside text-[#a6adc8] space-y-1">
+        <% @import_preview[:errors].each do |error| %>
+          <li><%= error %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <% if @import_preview[:links].any? %>
+    <%= form_with url: import_confirm_links_path, local: true do |f| %>
+      <div class="card mb-6">
+        <div class="flex justify-between items-center mb-4">
+          <h2 class="text-xl font-semibold">Links to Import (<%= @import_preview[:links].size %>)</h2>
+          <div class="space-x-2">
+            <button type="button" onclick="selectAll()" class="btn-secondary text-sm">Select All</button>
+            <button type="button" onclick="selectNone()" class="btn-secondary text-sm">Select None</button>
+          </div>
+        </div>
+
+        <div class="space-y-3 max-h-96 overflow-y-auto">
+          <% @import_preview[:links].each_with_index do |link_data, index| %>
+            <div class="border border-[#45475a] rounded-lg p-4 hover:border-[#585b70] transition-colors">
+              <div class="flex items-start space-x-3">
+                <div class="flex-shrink-0 pt-1">
+                  <%= check_box_tag "links[#{index}][selected]", "1", true, 
+                      class: "w-4 h-4 text-[#89b4fa] bg-[#313244] border-[#45475a] rounded focus:ring-[#89b4fa] focus:ring-2" %>
+                </div>
+                <div class="flex-grow min-w-0">
+                  <div class="flex items-start justify-between">
+                    <div class="flex-grow">
+                      <h3 class="font-medium text-[#cdd6f4] truncate">
+                        <%= link_data[:title] %>
+                      </h3>
+                      <p class="text-sm text-[#89b4fa] break-all">
+                        <%= link_data[:url] %>
+                      </p>
+                      <% if link_data[:description].present? %>
+                        <p class="text-sm text-[#a6adc8] mt-1">
+                          <%= truncate(link_data[:description], length: 200) %>
+                        </p>
+                      <% end %>
+                      <% if link_data[:tags].present? %>
+                        <div class="flex flex-wrap gap-1 mt-2">
+                          <% link_data[:tags].split(',').map(&:strip).each do |tag| %>
+                            <span class="inline-block bg-[#45475a] text-[#cdd6f4] text-xs px-2 py-1 rounded">
+                              <%= tag %>
+                            </span>
+                          <% end %>
+                        </div>
+                      <% end %>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              
+              <!-- Hidden fields for form data -->
+              <%= hidden_field_tag "links[#{index}][title]", link_data[:title] %>
+              <%= hidden_field_tag "links[#{index}][url]", link_data[:url] %>
+              <%= hidden_field_tag "links[#{index}][description]", link_data[:description] %>
+              <%= hidden_field_tag "links[#{index}][tags]", link_data[:tags] %>
+            </div>
+          <% end %>
+        </div>
+      </div>
+
+      <div class="flex justify-between items-center">
+        <%= link_to import_links_path, class: "btn-secondary" do %>
+          ← Back to Import
+        <% end %>
+        <%= f.submit "Import Selected Links", class: "btn-primary" %>
+      </div>
+    <% end %>
+  <% else %>
+    <div class="card text-center py-12">
+      <div class="text-6xl mb-4">📄</div>
+      <h3 class="text-2xl font-semibold text-[#cdd6f4] mb-2">No Links Found</h3>
+      <p class="text-[#a6adc8] mb-6">The uploaded file doesn't contain any valid links to import.</p>
+      <%= link_to import_links_path, class: "btn-primary" do %>
+        Try Another File
+      <% end %>
+    </div>
+  <% end %>
+</div>
+
+<script>
+  function selectAll() {
+    document.querySelectorAll('input[type="checkbox"][name*="[selected]"]').forEach(cb => cb.checked = true);
+  }
+  
+  function selectNone() {
+    document.querySelectorAll('input[type="checkbox"][name*="[selected]"]').forEach(cb => cb.checked = false);
+  }
+</script>
