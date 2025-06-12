@@ -10,18 +10,23 @@ class Link < ApplicationRecord
   before_save :fetch_meta_data, if: -> { url_changed? }
 
   def tags
-    if association(:tags).loaded?
-      super.map(&:name).join(', ')
-    else
-      super.map(&:name).join(', ')
-    end
+    super.map(&:name).join(', ')
   end
 
   def tags=(value)
-    return unless value.is_a?(String)
-    
-    tag_names = value.split(',').map(&:strip).reject(&:blank?)
-    @pending_tags = tag_names.map { |name| Tag.find_or_create_by(name: name) }
+    # Handle different input types gracefully
+    tag_names = case value
+                when String
+                  value.split(',').map(&:strip).compact_blank
+                when Array
+                  value.map { |v| v.to_s.strip }.compact_blank
+                when nil
+                  []
+                else
+                  [value.to_s.strip].compact_blank
+                end
+
+    @pending_tag_names = tag_names
   end
 
   after_save :assign_tags
@@ -29,11 +34,28 @@ class Link < ApplicationRecord
   private
 
   def assign_tags
-    return unless @pending_tags
+    return unless @pending_tag_names
 
-    self.tags.clear
-    self.tags << @pending_tags
-    @pending_tags = nil
+    begin
+      # Clear existing tags
+      link_tags.destroy_all
+
+      # Create new tags and associations
+      @pending_tag_names.each do |tag_name|
+        tag = Tag.find_or_create_by(name: tag_name)
+        link_tags.create!(tag: tag) unless link_tags.exists?(tag: tag)
+      end
+
+      # Reload the association to reflect changes
+      association(:tags).reload
+    rescue StandardError => e
+      # Add validation error instead of raising exception
+      errors.add(:tags, "could not be processed: #{e.message}")
+      Rails.logger.error "Tag assignment error for link #{id}: #{e.message}"
+      raise ActiveRecord::RecordInvalid, self
+    ensure
+      @pending_tag_names = nil
+    end
   end
 
   def fetch_meta_data

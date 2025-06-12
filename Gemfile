@@ -72,3 +72,5 @@ gem 'tailwindcss-ruby', '~> 4.0'
 gem 'tailwindcss-rails', '~> 4.1'
 
 gem 'devise', '~> 4.9'
+
+gem 'rubocop-minitest', '~> 0.38.1', group: :development
