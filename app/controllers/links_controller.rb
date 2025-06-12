@@ -360,7 +360,7 @@ class LinksController < ApplicationController
         csv << [
           link.title,
           link.url,
-          link.tags.is_a?(String) ? link.tags : link.tags.pluck(:name).join(', '),
+          link.tags_as_string,
           link.created_at.strftime('%Y-%m-%d %H:%M:%S'),
           link.read? ? 'true' : 'false',
           link.description
@@ -384,7 +384,7 @@ class LinksController < ApplicationController
           url: link.url,
           description: link.description,
           image_url: link.image_url,
-          tags: link.tags.is_a?(String) ? link.tags.split(', ') : link.tags.pluck(:name),
+          tags: link.tags_as_string.split(', ').compact_blank,
           read: link.read?,
           created_at: link.created_at.iso8601,
           updated_at: link.updated_at.iso8601
@@ -403,7 +403,7 @@ class LinksController < ApplicationController
     untagged_links = []
 
     links.find_each do |link|
-      link_tags = link.tags.is_a?(String) ? link.tags.split(', ').compact_blank : link.tags.pluck(:name)
+      link_tags = link.tags_as_string.split(', ').compact_blank
 
       if link_tags.any?
         link_tags.each do |tag|

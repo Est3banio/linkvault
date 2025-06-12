@@ -9,8 +9,8 @@ class Link < ApplicationRecord
   has_many :tags, through: :link_tags
   before_save :fetch_meta_data, if: -> { url_changed? }
 
-  def tags
-    super.map(&:name).join(', ')
+  def tags_as_string
+    tags.map(&:name).join(', ')
   end
 
   def tags=(value)

@@ -44,7 +44,7 @@
       Tags
       <span class="text-xs text-[#a6adc8] font-normal">(optional)</span>
     <% end %>
-    <%= f.text_field :tags, class: "w-full pl-4", placeholder: "work, tutorial, inspiration (separate with commas)", list: "available-tags", data: { tag_input_target: "input", action: "input->tag-input#updatePreview" } %>
+    <%= f.text_field :tags, value: (link.persisted? ? link.tags_as_string : ""), class: "w-full pl-4", placeholder: "e.g. work, tutorial, inspiration", list: "available-tags", data: { tag_input_target: "input", action: "input->tag-input#updatePreview" } %>
     <% if defined?(@available_tags) && @available_tags.any? %>
       <datalist id="available-tags">
         <% @available_tags.each do |tag_name| %>
