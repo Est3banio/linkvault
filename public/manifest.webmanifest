@@ -1,0 +1,81 @@
+{
+  "name": "LinkVault - Personal Bookmark Manager",
+  "short_name": "LinkVault",
+  "description": "Your personal bookmark manager - organize and manage your links effortlessly. Save, tag, and track your reading progress.",
+  "start_url": "/",
+  "display": "standalone",
+  "scope": "/",
+  "orientation": "portrait-primary",
+  "theme_color": "#181825",
+  "background_color": "#1e1e2e",
+  "lang": "en",
+  "categories": ["productivity", "utilities", "lifestyle"],
+  "screenshots": [],
+  "icons": [
+    {
+      "src": "/favicon-192x192.png",
+      "type": "image/png",
+      "sizes": "192x192",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/favicon-512x512.png",
+      "type": "image/png",
+      "sizes": "512x512",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/apple-touch-icon.png",
+      "type": "image/png",
+      "sizes": "180x180",
+      "purpose": "any"
+    },
+    {
+      "src": "/favicon.ico",
+      "type": "image/x-icon",
+      "sizes": "16x16 32x32",
+      "purpose": "any"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Dashboard",
+      "short_name": "Dashboard",
+      "description": "View your personal dashboard with stats and recent links",
+      "url": "/dashboard",
+      "icons": [
+        {
+          "src": "/favicon-192x192.png",
+          "sizes": "192x192",
+          "type": "image/png"
+        }
+      ]
+    },
+    {
+      "name": "Add Link",
+      "short_name": "Add Link",
+      "description": "Quickly add a new link to your vault",
+      "url": "/links/new",
+      "icons": [
+        {
+          "src": "/favicon-192x192.png",
+          "sizes": "192x192",
+          "type": "image/png"
+        }
+      ]
+    },
+    {
+      "name": "Browse Links",
+      "short_name": "Browse",
+      "description": "View and manage all your saved links",
+      "url": "/links",
+      "icons": [
+        {
+          "src": "/favicon-192x192.png",
+          "sizes": "192x192",
+          "type": "image/png"
+        }
+      ]
+    }
+  ]
+}

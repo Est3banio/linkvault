@@ -2,20 +2,35 @@
 <html>
   <head>
     <title><%= content_for(:title) || "Linkvault" %></title>
-    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no">
+    
+    <!-- PWA Configuration -->
     <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="LinkVault">
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="format-detection" content="telephone=no">
+    <meta name="msapplication-TileColor" content="#181825">
+    <meta name="msapplication-tap-highlight" content="no">
+    
+    <!-- Theme Colors -->
+    <meta name="theme-color" content="#181825">
+    <meta name="msapplication-navbutton-color" content="#181825">
+    <meta name="apple-mobile-web-app-status-bar-style" content="#181825">
+    
+    <!-- App Metadata -->
+    <meta name="application-name" content="LinkVault">
+    <meta name="description" content="Your personal bookmark manager - organize and manage your links effortlessly">
+    <meta name="keywords" content="bookmarks, links, organize, productivity, save, vault">
+    <meta name="author" content="Baniobits">
     
     <!-- Favicon and App Icons -->
     <link rel="icon" type="image/png" sizes="192x192" href="/favicon-192x192.png">
     <link rel="icon" type="image/png" sizes="512x512" href="/favicon-512x512.png">
     <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
     <link rel="shortcut icon" href="/favicon.ico">
-    <meta name="theme-color" content="#181825">
-    <meta name="apple-mobile-web-app-title" content="LinkVault">
-    <meta name="application-name" content="LinkVault">
+    <link rel="mask-icon" href="/favicon.ico" color="#181825">
     
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
@@ -23,7 +38,7 @@
     <%= yield :head %>
 
     <%# Enable PWA manifest for installable apps %>
-    <%= tag.link rel: "manifest", href: pwa_manifest_path(format: :json) %>
+    <link rel="manifest" href="/manifest.webmanifest">
 
     <%# Includes all stylesheet files in app/assets/stylesheets %>
     <%= stylesheet_link_tag :app, "data-turbo-track": "reload" %>
@@ -32,13 +47,45 @@
     <%# Register service worker for PWA functionality %>
     <script>
       if ('serviceWorker' in navigator) {
-        navigator.serviceWorker.register('/service-worker')
+        navigator.serviceWorker.register('/service-worker.js')
           .then(function(registration) {
-            console.log('Service Worker registered successfully:', registration.scope);
+            console.log('✅ Service Worker registered successfully:', registration.scope);
+            
+            // Check for updates
+            registration.addEventListener('updatefound', () => {
+              const newWorker = registration.installing;
+              newWorker.addEventListener('statechange', () => {
+                if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
+                  console.log('🔄 New content is available, please refresh.');
+                  // Optionally show a notification to the user about the update
+                }
+              });
+            });
           })
           .catch(function(error) {
-            console.log('Service Worker registration failed:', error);
+            console.log('❌ Service Worker registration failed:', error);
           });
+
+        // Listen for messages from service worker
+        navigator.serviceWorker.addEventListener('message', event => {
+          if (event.data && event.data.type === 'CACHE_STATUS_RESPONSE') {
+            console.log('📦 Cache status:', event.data);
+          }
+        });
+
+        // Request cache status (optional)
+        if (navigator.serviceWorker.controller) {
+          const messageChannel = new MessageChannel();
+          messageChannel.port1.addEventListener('message', event => {
+            console.log('📊 Service Worker cache info:', event.data);
+          });
+          messageChannel.port1.start();
+          
+          navigator.serviceWorker.controller.postMessage(
+            { type: 'CACHE_STATUS' }, 
+            [messageChannel.port2]
+          );
+        }
       }
     </script>
   </head>

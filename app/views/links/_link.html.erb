@@ -7,14 +7,14 @@
     <% end %>
     
     <div class="flex-1">
-      <div class="flex justify-between items-start mb-2">
-        <h3 class="text-xl font-semibold">
+      <div class="flex flex-col sm:flex-row sm:justify-between sm:items-start mb-2 gap-3">
+        <h3 class="text-xl font-semibold flex-1">
           <a href="<%= link.url %>" target="_blank" class="<%= link.read? ? 'text-[#a6adc8]' : 'text-[#cdd6f4]' %> hover:text-[#89b4fa]">
             <%= link.title %>
           </a>
         </h3>
         
-        <div class="flex space-x-2">
+        <div class="flex flex-wrap gap-2 sm:flex-nowrap">
           <% if link.read? %>
             <%= button_to "Mark Unread", link_path(link, link: { read: false }), method: :put, class: "text-xs text-[#f9e2af] bg-[#f9e2af]/20 hover:bg-[#f9e2af]/30 border border-[#f9e2af]/30 hover:border-[#f9e2af]/50 py-1 px-3 rounded-md transition-all duration-200" %>
           <% else %>
