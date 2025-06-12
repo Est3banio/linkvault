@@ -49,7 +49,7 @@
         <div class="container mx-auto px-4 flex justify-between items-center">
           <div class="flex items-center space-x-4">
             <%= link_to root_path, class: "flex items-center space-x-3 text-[#cdd6f4] hover:text-[#cdd6f4] transition-all duration-200" do %>
-              <%= image_tag "LinkVaultLogosmall.png", alt: "LinkVault Logo", class: "h-10 w-10" %>
+              <%= image_tag "LinkVaultLogosmall.png", alt: "LinkVault logo - Navigate to homepage", class: "h-10 w-10", role: "img" %>
               <h1 class="text-xl sm:text-2xl font-bold">LinkVault</h1>
             <% end %>
           </div>
@@ -73,19 +73,38 @@
       </header>
 
       <main class="container mx-auto px-4 py-8 flex-grow">
+        <%= yield %>
+        
+        <!-- Flash messages positioned after hero content -->
         <% if flash[:alert] %>
-          <div class="bg-[#f38ba8]/20 p-3 rounded border border-[#f38ba8] mb-4 alert">
-            <%= flash[:alert] %>
+          <div class="fixed top-20 left-1/2 transform -translate-x-1/2 z-50 max-w-md w-full mx-4">
+            <div class="bg-[#f38ba8]/10 backdrop-blur-sm p-4 rounded-lg border border-[#f38ba8]/30 shadow-lg animate-fade-in">
+              <div class="flex items-center space-x-3">
+                <div class="flex-shrink-0">
+                  <svg class="w-5 h-5 text-[#f38ba8]" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd"></path>
+                  </svg>
+                </div>
+                <p class="text-[#f38ba8] text-sm font-medium"><%= flash[:alert] %></p>
+              </div>
+            </div>
           </div>
         <% end %>
 
         <% if flash[:notice] %>
-          <div class="bg-[#a6e3a1]/20 p-3 rounded border border-[#a6e3a1] mb-4">
-            <%= flash[:notice] %>
+          <div class="fixed top-20 left-1/2 transform -translate-x-1/2 z-50 max-w-md w-full mx-4">
+            <div class="bg-[#a6e3a1]/10 backdrop-blur-sm p-4 rounded-lg border border-[#a6e3a1]/30 shadow-lg animate-fade-in">
+              <div class="flex items-center space-x-3">
+                <div class="flex-shrink-0">
+                  <svg class="w-5 h-5 text-[#a6e3a1]" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
+                  </svg>
+                </div>
+                <p class="text-[#a6e3a1] text-sm font-medium"><%= flash[:notice] %></p>
+              </div>
+            </div>
           </div>
         <% end %>
-
-        <%= yield %>
       </main>
 
       <footer class="bg-[#181825] border-t border-[#313244] py-12 mt-auto">
@@ -94,7 +113,7 @@
             <!-- Left side - Logo and description -->
             <div class="flex flex-col items-center md:items-start space-y-3">
               <div class="flex items-center space-x-3">
-                <%= image_tag "LinkVaultLogosmall.png", alt: "LinkVault Logo", class: "h-8 w-8" %>
+                <%= image_tag "LinkVaultLogosmall.png", alt: "LinkVault logo", class: "h-8 w-8", role: "img" %>
                 <h3 class="text-xl font-bold text-[#cdd6f4]">LinkVault</h3>
               </div>
               <p class="text-[#6c7086] text-center md:text-left">Your personal bookmark manager</p>
