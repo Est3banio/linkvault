@@ -4,8 +4,8 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Ruby Version](https://img.shields.io/badge/ruby-3.3.6-red.svg)](https://www.ruby-lang.org/en/news/2024/11/05/ruby-3-3-6-released/)
 [![Rails Version](https://img.shields.io/badge/rails-8.0.1-red.svg)](https://rubygems.org/gems/rails/versions/8.0.1)
-[![GitHub issues](https://img.shields.io/github/issues/BanioBitsOpenSource/linkvault)](https://github.com/BanioBitsOpenSource/linkvault/issues)
-[![GitHub stars](https://img.shields.io/github/stars/BanioBitsOpenSource/linkvault?style=social)](https://github.com/BanioBitsOpenSource/linkvault/stargazers)
+[![GitHub issues](https://img.shields.io/github/issues/Est3banio/linkvault)](https://github.com/est3banio/linkvault/issues)
+[![GitHub stars](https://img.shields.io/github/stars/est3banio/linkvault?style=social)](https://github.com/est3banio/linkvault/stargazers)
 
 LinkVault is a beautifully designed bookmark manager that helps you organize and access your favorite links. Built with Ruby on Rails and styled with the beautiful Catppuccin Mocha theme.
 
@@ -88,7 +88,7 @@ LinkVault is a beautifully designed bookmark manager that helps you organize and
 1. Clone the repository
 
 ```bash
-git clone https://github.com/BanioBitsOpenSource/linkvault.git
+git clone https://github.com/est3banio/linkvault.git
 cd linkvault
 ```
 
@@ -396,6 +396,7 @@ We welcome contributions! Please see our [Contributing Guide](CONTRIBUTING.md) f
 <summary>Click to expand contributor quick start guide</summary>
 
 1. **Fork the project**
+
    ```bash
    # Fork on GitHub, then clone your fork
    git clone git@github.com:yourusername/linkvault.git
@@ -403,6 +404,7 @@ We welcome contributions! Please see our [Contributing Guide](CONTRIBUTING.md) f
    ```
 
 2. **Set up development environment**
+
    ```bash
    bundle install && yarn install
    rails db:create db:migrate db:seed
@@ -410,17 +412,20 @@ We welcome contributions! Please see our [Contributing Guide](CONTRIBUTING.md) f
    ```
 
 3. **Create your feature branch**
+
    ```bash
    git checkout -b feature/amazing-feature
    ```
 
 4. **Make your changes and test**
+
    ```bash
    rails test
    bin/rubocop
    ```
 
 5. **Submit your contribution**
+
    ```bash
    git commit -m 'Add some amazing feature'
    git push origin feature/amazing-feature
@@ -452,15 +457,15 @@ If you find LinkVault helpful, please consider:
 
 - ⭐ **Starring** this repository
 - 🐛 **Reporting bugs** via our [issue tracker](https://github.com/BanioBitsOpenSource/linkvault/issues)
-- 💡 **Suggesting features** using our [feature request template](https://github.com/BanioBitsOpenSource/linkvault/issues/new?template=feature_request.md)
+- 💡 **Suggesting features** using our [feature request template](https://github.com/est3banio/linkvault/issues/new?template=feature_request.md)
 - 📖 **Contributing** to the project (see [CONTRIBUTING.md](CONTRIBUTING.md))
-- 💬 **Joining discussions** on [GitHub Discussions](https://github.com/BanioBitsOpenSource/linkvault/discussions)
+- 💬 **Joining discussions** on [GitHub Discussions](https://github.com/est3banio/linkvault/discussions)
 
 ## Project Status
 
-[![GitHub Release](https://img.shields.io/github/release/BanioBitsOpenSource/linkvault.svg)](https://github.com/BanioBitsOpenSource/linkvault/releases/latest)
-[![GitHub Activity](https://img.shields.io/github/commit-activity/m/BanioBitsOpenSource/linkvault)](https://github.com/BanioBitsOpenSource/linkvault/commits/main)
-[![GitHub Contributors](https://img.shields.io/github/contributors/BanioBitsOpenSource/linkvault)](https://github.com/BanioBitsOpenSource/linkvault/graphs/contributors)
+[![GitHub Release](https://img.shields.io/github/release/est3banio/linkvault.svg)](https://github.com/est3banio/linkvault/releases/latest)
+[![GitHub Activity](https://img.shields.io/github/commit-activity/m/est3banio/linkvault)](https://github.com/est3banio/linkvault/commits/main)
+[![GitHub Contributors](https://img.shields.io/github/contributors/est3banio/linkvault)](https://github.com/est3banio/linkvault/graphs/contributors)
 
 - 🚀 **Actively maintained** with regular updates
 - 🔒 **Security focused** with automated vulnerability scanning
