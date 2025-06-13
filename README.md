@@ -1,8 +1,11 @@
 # LinkVault
 
-[![Pipeline Status](https://gitlab.com/baniobits/linkvault/badges/main/pipeline.svg)](https://gitlab.com/baniobits/linkvault/-/commits/main)
-[![Coverage Report](https://gitlab.com/baniobits/linkvault/badges/main/coverage.svg)](https://gitlab.com/baniobits/linkvault/-/commits/main)
+[![CI](https://github.com/BanioBitsOpenSource/linkvault/workflows/CI/badge.svg)](https://github.com/BanioBitsOpenSource/linkvault/actions/workflows/ci.yml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![Ruby Version](https://img.shields.io/badge/ruby-3.3.6-red.svg)](https://www.ruby-lang.org/en/news/2024/11/05/ruby-3-3-6-released/)
+[![Rails Version](https://img.shields.io/badge/rails-8.0.1-red.svg)](https://rubygems.org/gems/rails/versions/8.0.1)
+[![GitHub issues](https://img.shields.io/github/issues/BanioBitsOpenSource/linkvault)](https://github.com/BanioBitsOpenSource/linkvault/issues)
+[![GitHub stars](https://img.shields.io/github/stars/BanioBitsOpenSource/linkvault?style=social)](https://github.com/BanioBitsOpenSource/linkvault/stargazers)
 
 LinkVault is a beautifully designed bookmark manager that helps you organize and access your favorite links. Built with Ruby on Rails and styled with the beautiful Catppuccin Mocha theme.
 
@@ -65,7 +68,10 @@ LinkVault is a beautifully designed bookmark manager that helps you organize and
 - Tailwind CSS with Catppuccin Mocha theme
 - Docker for deployment
 
-## Getting Started
+## Quick Start
+
+> [!TIP]
+> Want to try LinkVault quickly? Check out our [Docker setup](#docker) for the fastest way to get started!
 
 ### Prerequisites
 
@@ -74,12 +80,15 @@ LinkVault is a beautifully designed bookmark manager that helps you organize and
 - Node.js and Yarn
 - Docker (optional, for deployment)
 
+> [!NOTE]
+> For a complete development environment setup, see our [Contributing Guide](CONTRIBUTING.md#development-setup).
+
 ### Installation
 
 1. Clone the repository
 
 ```bash
-git clone https://gitlab.com/baniobits/linkvault.git
+git clone https://github.com/BanioBitsOpenSource/linkvault.git
 cd linkvault
 ```
 
@@ -120,19 +129,19 @@ For local development, the project uses:
 - Solid Queue for background job processing
 - Ruby's built-in testing framework
 - Tailwind CSS for styling
-- GitLab CI/CD for automated testing and deployment
+- GitHub Actions for automated testing and deployment
 
 ### CI/CD Pipeline
 
-This project uses GitLab CI/CD for continuous integration and deployment. The pipeline includes:
+This project uses GitHub Actions for continuous integration and deployment. The pipeline includes:
 
 - Automated testing on every commit
 - Code quality checks with RuboCop
 - Security scanning with Brakeman
 - Dependency vulnerability scanning
-- Automated deployment to staging/production environments
+- Import map auditing for JavaScript security
 
-See `.gitlab-ci.yml` for the complete pipeline configuration.
+See `.github/workflows/ci.yml` for the complete pipeline configuration.
 
 ### User Management
 
@@ -199,6 +208,9 @@ Run `rails db:seed` to create default admin and user accounts:
 - User: `user@linkvault.local` / `user123456`
 
 #### User Registration Policy
+
+> [!IMPORTANT]
+> LinkVault uses **invitation-only registration** for security and control.
 
 - Public sign-up routes (`/users/sign_up`) are disabled
 - Only administrators can create new user accounts via admin dashboard or console
@@ -297,7 +309,8 @@ rails test
 
 ### Docker
 
-**⚠️ Important**: This Docker setup requires a PostgreSQL database. You'll need to run a PostgreSQL container or connect to an external database.
+> [!WARNING]
+> This Docker setup requires a PostgreSQL database. You'll need to run a PostgreSQL container or connect to an external database.
 
 You can run the application in a Docker container:
 
@@ -370,23 +383,54 @@ The application can also be deployed using Kamal:
 
 ## Contributing
 
-We welcome contributions! Please see our [Contributing Guide](docs/contribution.md) for detailed information on:
+We welcome contributions! Please see our [Contributing Guide](CONTRIBUTING.md) for detailed information on:
 
 - Development setup and workflow
-- GitLab branch strategy
+- GitHub branch strategy and pull request process
 - Code standards and testing
-- Merge request process
 - Issue reporting guidelines
 
-Quick start for contributors:
+### Quick Start for Contributors
 
-1. Fork the project
-2. Create your feature branch (`git checkout -b feature/amazing-feature`)
-3. Commit your changes (`git commit -m 'Add some amazing feature'`)
-4. Push to the branch (`git push origin feature/amazing-feature`)
-5. Open a Merge Request using our MR template
+<details>
+<summary>Click to expand contributor quick start guide</summary>
 
-For questions, please check our [documentation](docs/) or create a discussion on GitLab.
+1. **Fork the project**
+   ```bash
+   # Fork on GitHub, then clone your fork
+   git clone git@github.com:yourusername/linkvault.git
+   cd linkvault
+   ```
+
+2. **Set up development environment**
+   ```bash
+   bundle install && yarn install
+   rails db:create db:migrate db:seed
+   ./bin/dev
+   ```
+
+3. **Create your feature branch**
+   ```bash
+   git checkout -b feature/amazing-feature
+   ```
+
+4. **Make your changes and test**
+   ```bash
+   rails test
+   bin/rubocop
+   ```
+
+5. **Submit your contribution**
+   ```bash
+   git commit -m 'Add some amazing feature'
+   git push origin feature/amazing-feature
+   # Open a Pull Request using our PR template
+   ```
+
+</details>
+
+> [!TIP]
+> For questions, please check our [documentation](docs/) or create a discussion on GitHub.
 
 ## License
 
@@ -401,3 +445,24 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 ## About
 
 Made with 💜 by [Baniobits](https://www.baniobits.dev/)
+
+## Support
+
+If you find LinkVault helpful, please consider:
+
+- ⭐ **Starring** this repository
+- 🐛 **Reporting bugs** via our [issue tracker](https://github.com/BanioBitsOpenSource/linkvault/issues)
+- 💡 **Suggesting features** using our [feature request template](https://github.com/BanioBitsOpenSource/linkvault/issues/new?template=feature_request.md)
+- 📖 **Contributing** to the project (see [CONTRIBUTING.md](CONTRIBUTING.md))
+- 💬 **Joining discussions** on [GitHub Discussions](https://github.com/BanioBitsOpenSource/linkvault/discussions)
+
+## Project Status
+
+[![GitHub Release](https://img.shields.io/github/release/BanioBitsOpenSource/linkvault.svg)](https://github.com/BanioBitsOpenSource/linkvault/releases/latest)
+[![GitHub Activity](https://img.shields.io/github/commit-activity/m/BanioBitsOpenSource/linkvault)](https://github.com/BanioBitsOpenSource/linkvault/commits/main)
+[![GitHub Contributors](https://img.shields.io/github/contributors/BanioBitsOpenSource/linkvault)](https://github.com/BanioBitsOpenSource/linkvault/graphs/contributors)
+
+- 🚀 **Actively maintained** with regular updates
+- 🔒 **Security focused** with automated vulnerability scanning
+- 📱 **Mobile-first** design with PWA support
+- 🎯 **Production ready** with comprehensive CI/CD pipeline
