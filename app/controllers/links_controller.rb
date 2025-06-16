@@ -47,14 +47,14 @@ class LinksController < ApplicationController
                        else
                          t('links.notices.updated')
                        end
-      
+
       respond_to do |format|
         format.html { redirect_to links_path, notice: notice_message }
         format.turbo_stream do
           flash.now[:notice] = notice_message
           render turbo_stream: [
             turbo_stream.replace("link_#{@link.id}", partial: 'links/link', locals: { link: @link }),
-            turbo_stream.replace("flash", partial: "layouts/flash")
+            turbo_stream.replace('flash', partial: 'layouts/flash')
           ]
         end
       end
@@ -100,9 +100,7 @@ class LinksController < ApplicationController
         @import_preview = parse_html_content(file_content)
       end
 
-      if @import_preview[:errors].any?
-        flash.now[:alert] = "Found #{@import_preview[:errors].size} parsing errors. Please review below."
-      end
+      flash.now[:alert] = "Found #{@import_preview[:errors].size} parsing errors. Please review below." if @import_preview[:errors].any?
 
       flash.now[:notice] = "Preview shows #{@import_preview[:links].size} links ready to import."
     rescue StandardError => e
@@ -222,7 +220,7 @@ class LinksController < ApplicationController
         flash.now[:notice] = t('links.notices.created')
         render turbo_stream: [
           turbo_stream.prepend('links', partial: 'links/link', locals: { link: @link }),
-          turbo_stream.replace("flash", partial: "layouts/flash")
+          turbo_stream.replace('flash', partial: 'layouts/flash')
         ]
       end
     end
@@ -327,9 +325,7 @@ class LinksController < ApplicationController
           folder_elements = []
           current = link_node.parent
           while current
-            if current.name == 'dl' && current.previous_element&.name == 'h3'
-              folder_elements << current.previous_element.text.strip
-            end
+            folder_elements << current.previous_element.text.strip if current.name == 'dl' && current.previous_element&.name == 'h3'
             current = current.parent
           end
           tags = folder_elements.reverse.join(', ') if folder_elements.any?

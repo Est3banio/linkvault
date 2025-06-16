@@ -11,7 +11,7 @@ class LinkTest < ActiveSupport::TestCase
     link = @user.links.build(title: 'Test', url: 'https://example.com', tags: '')
 
     assert link.save
-    assert_equal '', link.tags
+    assert_equal '', link.tags_as_string
     assert_equal 0, link.association(:tags).target.count
   end
 
@@ -19,7 +19,7 @@ class LinkTest < ActiveSupport::TestCase
     link = @user.links.build(title: 'Test', url: 'https://example.com', tags: nil)
 
     assert link.save
-    assert_equal '', link.tags
+    assert_equal '', link.tags_as_string
     assert_equal 0, link.association(:tags).target.count
   end
 
@@ -27,7 +27,7 @@ class LinkTest < ActiveSupport::TestCase
     link = @user.links.build(title: 'Test', url: 'https://example.com', tags: 'work')
 
     assert link.save
-    assert_equal 'work', link.tags
+    assert_equal 'work', link.tags_as_string
     assert_equal 1, link.association(:tags).target.count
   end
 
@@ -35,7 +35,7 @@ class LinkTest < ActiveSupport::TestCase
     link = @user.links.build(title: 'Test', url: 'https://example.com', tags: 'work, development, rails')
 
     assert link.save
-    assert_equal 'work, development, rails', link.tags
+    assert_equal 'work, development, rails', link.tags_as_string
     assert_equal 3, link.association(:tags).target.count
   end
 
@@ -43,7 +43,7 @@ class LinkTest < ActiveSupport::TestCase
     link = @user.links.build(title: 'Test', url: 'https://example.com', tags: ' work , development , rails ')
 
     assert link.save
-    assert_equal 'work, development, rails', link.tags
+    assert_equal 'work, development, rails', link.tags_as_string
     assert_equal 3, link.association(:tags).target.count
   end
 
@@ -51,7 +51,7 @@ class LinkTest < ActiveSupport::TestCase
     link = @user.links.build(title: 'Test', url: 'https://example.com', tags: %w[work development rails])
 
     assert link.save
-    assert_equal 'work, development, rails', link.tags
+    assert_equal 'work, development, rails', link.tags_as_string
     assert_equal 3, link.association(:tags).target.count
   end
 
@@ -59,7 +59,7 @@ class LinkTest < ActiveSupport::TestCase
     link = @user.links.build(title: 'Test', url: 'https://example.com', tags: ['work', '', 'development'])
 
     assert link.save
-    assert_equal 'work, development', link.tags
+    assert_equal 'work, development', link.tags_as_string
     assert_equal 2, link.association(:tags).target.count
   end
 
@@ -67,7 +67,7 @@ class LinkTest < ActiveSupport::TestCase
     link = @user.links.build(title: 'Test', url: 'https://example.com', tags: 123)
 
     assert link.save
-    assert_equal '123', link.tags
+    assert_equal '123', link.tags_as_string
     assert_equal 1, link.association(:tags).target.count
   end
 
@@ -82,19 +82,19 @@ class LinkTest < ActiveSupport::TestCase
     assert_equal 1, Tag.where(name: 'work').count
 
     # Both links should reference the same tag
-    assert_equal 'work', link1.tags
-    assert_equal 'work', link2.tags
+    assert_equal 'work', link1.tags_as_string
+    assert_equal 'work', link2.tags_as_string
   end
 
   test 'should update tags correctly' do
     link = @user.links.create!(title: 'Test', url: 'https://example.com', tags: 'old_tag')
 
-    assert_equal 'old_tag', link.tags
+    assert_equal 'old_tag', link.tags_as_string
 
     # Update tags
     link.update!(tags: 'new_tag, another_tag')
 
-    assert_equal 'new_tag, another_tag', link.tags
+    assert_equal 'new_tag, another_tag', link.tags_as_string
     assert_equal 2, link.association(:tags).target.count
   end
 end
