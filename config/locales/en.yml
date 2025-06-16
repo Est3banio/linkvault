@@ -31,9 +31,11 @@ en:
   hello: "Hello world"
   links:
     notices:
-      created: "Link erfolgreich hinzugefügt."
+      created: "Link saved successfully! 🔖"
       updated: "Link updated."
       deleted: "Link deleted."
+      marked_as_read: "Link marked as read ✓"
+      marked_as_unread: "Link marked as unread 📌"
   passwords:
     notices:
       reset_sent: "Password reset instructions sent (if user with that email address exists)."

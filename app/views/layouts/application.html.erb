@@ -214,40 +214,7 @@
         <%= yield %>
         
         <!-- Flash messages positioned after hero content -->
-        <% if flash[:alert] %>
-          <div data-controller="flash" class="fixed top-20 left-1/2 z-50 max-w-md w-full mx-4">
-            <div class="bg-[#f38ba8]/10 backdrop-blur-sm p-4 rounded-lg border border-[#f38ba8]/30 shadow-lg cursor-pointer" data-action="click->flash#dismiss">
-              <div class="flex items-center justify-between">
-                <div class="flex items-center space-x-3">
-                  <div class="flex-shrink-0">
-                    <span class="text-xl">⚠️</span>
-                  </div>
-                  <p class="text-[#f38ba8] text-sm font-medium"><%= flash[:alert] %></p>
-                </div>
-                <button class="text-[#f38ba8]/70 hover:text-[#f38ba8] ml-4 text-lg" data-action="click->flash#dismiss">×</button>
-              </div>
-            </div>
-          </div>
-        <% end %>
-
-        <% if flash[:notice] %>
-          <div data-controller="flash" data-flash-timeout-value="5000" class="fixed top-20 left-1/2 z-50 max-w-md w-full mx-4">
-            <div class="bg-[#a6e3a1]/10 backdrop-blur-sm p-4 rounded-lg border border-[#a6e3a1]/30 shadow-lg cursor-pointer" data-action="click->flash#dismiss">
-              <div class="flex items-center justify-between">
-                <div class="flex items-center space-x-3">
-                  <div class="flex-shrink-0">
-                    <span class="text-xl">💾</span>
-                  </div>
-                  <div>
-                    <p class="text-[#a6e3a1] text-sm font-medium"><%= flash[:notice] %></p>
-                    <p class="text-[#a6e3a1]/70 text-xs">Link saved successfully!</p>
-                  </div>
-                </div>
-                <button class="text-[#a6e3a1]/70 hover:text-[#a6e3a1] ml-4 text-lg" data-action="click->flash#dismiss">×</button>
-              </div>
-            </div>
-          </div>
-        <% end %>
+        <%= render 'layouts/flash' %>
       </main>
 
       <footer class="bg-[#181825] border-t border-[#313244] py-12 mt-auto">

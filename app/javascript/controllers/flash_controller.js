@@ -12,6 +12,12 @@ export default class extends Controller {
       this.element.style.transition = "all 0.4s ease-out"
       this.element.style.opacity = "1"
       this.element.style.transform = "translateY(0) translateX(-50%)"
+      
+      // Add a subtle pulse animation for success messages
+      const innerDiv = this.element.querySelector('.bg-\\[\\#a6e3a1\\]\\/10')
+      if (innerDiv) {
+        innerDiv.style.animation = "pulse 1s ease-in-out"
+      }
     })
 
     // Auto dismiss

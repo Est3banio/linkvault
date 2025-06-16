@@ -42,7 +42,22 @@ class LinksController < ApplicationController
 
   def update
     if @link.update(link_params)
-      redirect_to links_path, notice: t('links.notices.updated')
+      notice_message = if link_params[:read].present? && @link.read_previously_changed?
+                         @link.read ? t('links.notices.marked_as_read') : t('links.notices.marked_as_unread')
+                       else
+                         t('links.notices.updated')
+                       end
+      
+      respond_to do |format|
+        format.html { redirect_to links_path, notice: notice_message }
+        format.turbo_stream do
+          flash.now[:notice] = notice_message
+          render turbo_stream: [
+            turbo_stream.replace("link_#{@link.id}", partial: 'links/link', locals: { link: @link }),
+            turbo_stream.replace("flash", partial: "layouts/flash")
+          ]
+        end
+      end
     else
       @available_tags = current_user.links.joins(:tags).group('tags.name').pluck('tags.name').sort
       render :edit, status: :unprocessable_entity
@@ -204,7 +219,11 @@ class LinksController < ApplicationController
     respond_to do |format|
       format.html { redirect_to links_path, notice: t('links.notices.created') }
       format.turbo_stream do
-        render turbo_stream: turbo_stream.prepend('links', partial: 'links/link', locals: { link: @link })
+        flash.now[:notice] = t('links.notices.created')
+        render turbo_stream: [
+          turbo_stream.prepend('links', partial: 'links/link', locals: { link: @link }),
+          turbo_stream.replace("flash", partial: "layouts/flash")
+        ]
       end
     end
   end

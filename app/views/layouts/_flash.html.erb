@@ -1,0 +1,39 @@
+<div id="flash">
+  <% if flash[:alert] %>
+    <div data-controller="flash" class="fixed top-20 left-1/2 z-50 max-w-md w-full mx-4">
+      <div class="bg-[#f38ba8]/10 backdrop-blur-sm p-4 rounded-lg border border-[#f38ba8]/30 shadow-lg cursor-pointer" data-action="click->flash#dismiss">
+        <div class="flex items-center transform -translate-x-1/2">
+          <span class="text-[#f38ba8] mr-3 text-xl">⚠️</span>
+          <div class="flex-1">
+            <p class="text-[#f38ba8] text-sm font-medium"><%= flash[:alert] %></p>
+          </div>
+          <button class="text-[#f38ba8]/70 hover:text-[#f38ba8] ml-4 text-lg" data-action="click->flash#dismiss">×</button>
+        </div>
+      </div>
+    </div>
+  <% end %>
+
+  <% if flash[:notice] %>
+    <div data-controller="flash" data-flash-timeout-value="5000" class="fixed top-20 left-1/2 z-50 max-w-md w-full mx-4">
+      <div class="bg-[#a6e3a1]/10 backdrop-blur-sm p-4 rounded-lg border border-[#a6e3a1]/30 shadow-lg cursor-pointer" data-action="click->flash#dismiss">
+        <div class="flex items-center transform -translate-x-1/2">
+          <span class="text-[#a6e3a1] mr-3 text-xl">
+            <% if flash[:notice].include?("saved") || flash[:notice].include?("created") %>
+              💾
+            <% elsif flash[:notice].include?("marked as read") %>
+              ✓
+            <% elsif flash[:notice].include?("marked as unread") %>
+              📌
+            <% else %>
+              ✅
+            <% end %>
+          </span>
+          <div class="flex-1">
+            <p class="text-[#a6e3a1] text-sm font-medium"><%= flash[:notice] %></p>
+          </div>
+          <button class="text-[#a6e3a1]/70 hover:text-[#a6e3a1] ml-4 text-lg" data-action="click->flash#dismiss">×</button>
+        </div>
+      </div>
+    </div>
+  <% end %>
+</div>

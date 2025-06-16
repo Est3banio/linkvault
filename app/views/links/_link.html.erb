@@ -1,4 +1,7 @@
-<div id="link_<%= link.id %>" class="card mb-4 hover:border-[#b4befe] transition-colors <%= 'bg-[#313244] bg-opacity-60' if link.read? %>">
+<div id="link_<%= link.id %>" 
+     data-controller="link-feedback" 
+     data-link-feedback-target="card"
+     class="card mb-4 hover:border-[#b4befe] transition-colors <%= 'bg-[#313244] bg-opacity-60' if link.read? %>">
   <div class="flex flex-col md:flex-row gap-4">
     <% if link.image_url.present? %>
       <div class="w-full md:w-32 h-32 flex-shrink-0">
@@ -16,14 +19,29 @@
         
         <div class="flex flex-wrap gap-2 sm:flex-nowrap">
           <% if link.read? %>
-            <%= button_to "Mark Unread", link_path(link, link: { read: false }), method: :put, class: "text-xs text-[#f9e2af] bg-[#f9e2af]/20 hover:bg-[#f9e2af]/30 border border-[#f9e2af]/30 hover:border-[#f9e2af]/50 py-1 px-3 rounded-md transition-all duration-200" %>
+            <%= button_to "Mark Unread", link_path(link, link: { read: false }), 
+                method: :put, 
+                data: { 
+                  action: "click->link-feedback#markAsUnread",
+                  "link-feedback-target": "unreadButton"
+                },
+                class: "text-xs text-[#f9e2af] bg-[#f9e2af]/20 hover:bg-[#f9e2af]/30 border border-[#f9e2af]/30 hover:border-[#f9e2af]/50 py-1 px-3 rounded-md transition-all duration-200" %>
           <% else %>
-            <%= button_to "Mark Read", link_path(link, link: { read: true }), method: :put, class: "text-xs text-[#a6e3a1] bg-[#a6e3a1]/20 hover:bg-[#a6e3a1]/30 border border-[#a6e3a1]/30 hover:border-[#a6e3a1]/50 py-1 px-3 rounded-md transition-all duration-200" %>
+            <%= button_to "Mark Read", link_path(link, link: { read: true }), 
+                method: :put, 
+                data: { 
+                  action: "click->link-feedback#markAsRead",
+                  "link-feedback-target": "readButton"
+                },
+                class: "text-xs text-[#a6e3a1] bg-[#a6e3a1]/20 hover:bg-[#a6e3a1]/30 border border-[#a6e3a1]/30 hover:border-[#a6e3a1]/50 py-1 px-3 rounded-md transition-all duration-200" %>
           <% end %>
           
           <%= link_to "Edit", edit_link_path(link), class: "text-xs text-[#89b4fa] bg-[#89b4fa]/20 hover:bg-[#89b4fa]/30 border border-[#89b4fa]/30 hover:border-[#89b4fa]/50 py-1 px-3 rounded-md transition-all duration-200" %>
           <%= button_to "Delete", link, method: :delete, 
-              data: { turbo_confirm: "Are you sure?" },
+              data: { 
+                turbo_confirm: "Are you sure?",
+                action: "click->link-feedback#animateDelete"
+              },
               class: "text-xs text-[#f38ba8] bg-[#f38ba8]/20 hover:bg-[#f38ba8]/30 border border-[#f38ba8]/30 hover:border-[#f38ba8]/50 py-1 px-3 rounded-md transition-all duration-200" %>
         </div>
       </div>
