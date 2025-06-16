@@ -5,13 +5,11 @@ export default class extends Controller {
 
   connect() {
     this.element.style.opacity = "0"
-    this.element.style.transform = "translateY(-20px) translateX(-50%)"
     
     // Animate in
     requestAnimationFrame(() => {
-      this.element.style.transition = "all 0.4s ease-out"
+      this.element.style.transition = "opacity 0.4s ease-out"
       this.element.style.opacity = "1"
-      this.element.style.transform = "translateY(0) translateX(-50%)"
       
       // Add a subtle pulse animation for success messages
       const innerDiv = this.element.querySelector('.bg-\\[\\#a6e3a1\\]\\/10')
@@ -27,9 +25,8 @@ export default class extends Controller {
   }
 
   dismiss() {
-    this.element.style.transition = "all 0.3s ease-in"
+    this.element.style.transition = "opacity 0.3s ease-in"
     this.element.style.opacity = "0"
-    this.element.style.transform = "translateY(-20px) translateX(-50%)"
     
     setTimeout(() => {
       if (this.element.parentNode) {
